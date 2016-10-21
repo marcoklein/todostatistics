@@ -22,17 +22,6 @@ var TodoistData = {
     completed: null
 };
 
-/**
- * If you write a new module add it here so your module code gets executed.
- * 
- * Holds all available modules.
- * 
- * @type Array
- */
-var AvailableModules = [
-    ProjectsAndItemsPieChart,
-    NumberOfItemsPerDayColumnChart
-];
 
 
 /**
@@ -42,11 +31,10 @@ var AvailableModules = [
 
 
 google.charts.load('current', {'packages': ['corechart', "bar"]});
-google.charts.setOnLoadCallback(drawChart);
 
-ProjectsAndItemsPieChart = {
+var ProjectsAndItemsPieChart = {
     render: function () {
-        var todoistData = JSON.parse(TodoistData.sync);
+        var todoistData = TodoistData.sync;
 
         var dataArray = [['Task', 'Hours per Day']];
 
@@ -76,14 +64,14 @@ ProjectsAndItemsPieChart = {
     }
 };
 
-NumberOfItemsPerDayColumnChart = {
+var NumberOfItemsPerDayColumnChart = {
     render: function () {
         if (!TodoistData.completed) {
             return; // no completed data
         }
         console.log("Response completed request.");
 
-        var completedItems = JSON.parse(TodoistData.completed);
+        var completedItems = TodoistData.completed;
 
         var weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
         var shortWeekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -150,8 +138,24 @@ function getTodoistData() {
  */
 function renderDashboard() {
     for (var i = 0; i < AvailableModules.length; i++) {
-        AvailableModules.render();
+        AvailableModules[i].render();
     }
 }
 
-getTodoistData();
+
+google.charts.setOnLoadCallback(function () {
+    getTodoistData();
+});
+
+
+/**
+ * If you write a new module add it here so your module code gets executed.
+ * 
+ * Holds all available modules.
+ * 
+ * @type Array
+ */
+var AvailableModules = [
+    ProjectsAndItemsPieChart,
+    NumberOfItemsPerDayColumnChart
+];
