@@ -57,8 +57,17 @@ TodoistAPI.prototype.completed = {
         var self = this;
         
         
-
-        function getNextCompletedItems(token, offset, allItems, callback) {
+        
+        /**
+         * Called recursively to get all completed items.
+         * 
+         * @param {type} token
+         * @param {type} offset
+         * @param {type} msgBody Holds items and projects see Todoist developer doc.
+         * @param {type} callback
+         * @returns {undefined}
+         */
+        function getNextCompletedItems(token, offset, msgBody, callback) {
 
             var tokenParams = "?";
             tokenParams += "token=" + token;
@@ -76,26 +85,29 @@ TodoistAPI.prototype.completed = {
                             return;
                         }
                         // parse body
-                        var body = JSON.parse(body);
+                        body = JSON.parse(body);
 
-                        var body = body;
-                        console.log("Retrieved body with " + body.length + " entries.");
-
-                        for (var i = 0; i < body.length; i++) {
-                            allItems.push(body[i]);
+                        // get body items
+                        var items = body.items;
+                        console.log("Retrieved " + items.length + " items.");
+                        
+                        // add items to all body
+                        for (var i = 0; i < items.length; i++) {
+                            msgBody.items.push(items[i]);
                         }
 
 
-                        if (body.items.length === 50) {
+                        if (items.length === 50) {
                             // make another request until no more item can be retrieved
-                            getNextCompletedItems(token, offset + 50, allItems, function (allItems) {
-                                callback(allItems);
+                            getNextCompletedItems(token, offset + 50, msgBody, function (msgBody) {
+                                callback(msgBody);
                             });
                         } else {
                             // all items retrieved
-                            console.log((offset + body.items.length) + " items recieved.");
-                            console.log((offset + body.projects.length) + " projects recieved.");
-                            callback(allItems);
+                            msgBody.projects = body.projects;
+                            console.log((msgBody.items.length) + " items recieved.");
+                            console.log("Projects: " + JSON.stringify(msgBody.projects));
+                            callback(msgBody);
                         }
                     }
             );
@@ -104,12 +116,12 @@ TodoistAPI.prototype.completed = {
         
         var promise = new RSVP.Promise(function getAllCompletedPromise(resolve, reject) {
             console.log("Get all request with token: " + self.token);
-            getNextCompletedItems(self.token, 0, [], function (allItems) {
+            getNextCompletedItems(self.token, 0, { items: [], projects: []}, function (msgBody) {
                 
-                console.log("all items: " + JSON.stringify(allItems));
+                //console.log("all items: " + JSON.stringify(allItems));
 
-                if (allItems) {
-                    resolve(allItems);
+                if (msgBody) {
+                    resolve(msgBody);
                 } else {
                     reject("Could not retrieve all completed items.");
                 }

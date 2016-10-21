@@ -73,17 +73,19 @@ var NumberOfItemsPerCompletedProjectChart = {
         
         var todoistData = TodoistData.completed;
         
+        var projectIds = _.keys(todoistData.projects);
+        
         var dataArray = [['Project', 'Number of Items']];
 
-        var itemCountArray = _.map(todoistData.projects, function (project) {
+        var itemCountArray = _.map(projectIds, function (projectId) {
             return _.filter(todoistData.items, function (item) {
-                return item.project_id === project.id;
+                return item.project_id === projectId;
             }).length;
         });
 
-        for (var i = 0; i < todoistData.projects.length; i++) {
+        for (var i = 0; i < projectIds.length; i++) {
             dataArray.push([
-                todoistData.projects[i].name,
+                todoistData.projects[projectIds[i]].name,
                 itemCountArray[i]
             ]);
         }
@@ -95,7 +97,7 @@ var NumberOfItemsPerCompletedProjectChart = {
             title: 'Completed Projects'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('completedprojects'));
+        var chart = new google.visualization.PieChart(document.getElementById('completed_projects'));
 
         chart.draw(data, options);
         
@@ -112,7 +114,7 @@ var NumberOfItemsPerDayColumnChart = {
         }
         console.log("Response completed request.");
 
-        var completedItems = TodoistData.completed;
+        var completedItems = TodoistData.completed.items;
 
         var weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
         var shortWeekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -131,7 +133,7 @@ var NumberOfItemsPerDayColumnChart = {
         }
 
 
-        console.log(JSON.stringify(arrayData));
+        //console.log(JSON.stringify(arrayData));
 
 
         var dataArray = $.merge([["Element", "Density", {role: "style"}]], arrayData);
@@ -152,7 +154,7 @@ var NumberOfItemsPerDayColumnChart = {
 //            width: 600,
 //            height: 400,
             bar: {groupWidth: "95%"},
-            legend: {position: "none"},
+            legend: {position: "none"}
         };
         var chart = new google.visualization.ColumnChart(document.getElementById("chart_most_productive_day"));
         chart.draw(view, options);
