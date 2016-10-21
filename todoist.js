@@ -6,6 +6,7 @@
 
 var request = require("request");
 var RSVP = require("RSVP");
+var _ = require("underscore");
 
 /**
  * 
@@ -86,6 +87,9 @@ TodoistAPI.prototype.completed = {
                         }
                         // parse body
                         body = JSON.parse(body);
+                        
+                        // add all projects which are not already added
+                        msgBody.projects = _.union(msgBody.projects, body.projects);
 
                         // get body items
                         var items = body.items;
@@ -106,7 +110,6 @@ TodoistAPI.prototype.completed = {
                             // all items retrieved
                             msgBody.projects = body.projects;
                             console.log((msgBody.items.length) + " items recieved.");
-                            console.log("Projects: " + JSON.stringify(msgBody.projects));
                             callback(msgBody);
                         }
                     }

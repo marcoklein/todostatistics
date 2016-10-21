@@ -69,17 +69,19 @@ var NumberOfItemsPerCompletedProjectChart = {
         if (!TodoistData.completed) {
             return; // completed is needed
         }
-        console.log(JSON.stringify(TodoistData.completed));
+        
         
         var todoistData = TodoistData.completed;
         
+        // extract project ids to access projects later
         var projectIds = _.keys(todoistData.projects);
+        console.log("Project ids: " + projectIds);
         
         var dataArray = [['Project', 'Number of Items']];
 
         var itemCountArray = _.map(projectIds, function (projectId) {
             return _.filter(todoistData.items, function (item) {
-                return item.project_id === projectId;
+                return "" + item.project_id === "" + projectId;
             }).length;
         });
 
@@ -137,7 +139,6 @@ var NumberOfItemsPerDayColumnChart = {
 
 
         var dataArray = $.merge([["Element", "Density", {role: "style"}]], arrayData);
-        console.log(JSON.stringify(dataArray));
 
         var data = google.visualization.arrayToDataTable(dataArray);
 
