@@ -64,6 +64,20 @@ var ProjectsAndItemsPieChart = {
     }
 };
 
+var NumberOfItemsPerCompletedProjectChart = {
+    render: function () {
+        if (!TodoistData.completed) {
+            return; // completed is needed
+        }
+        
+        
+        
+        
+        
+        
+    }
+};
+
 var NumberOfItemsPerDayColumnChart = {
     render: function () {
         if (!TodoistData.completed) {
@@ -108,8 +122,8 @@ var NumberOfItemsPerDayColumnChart = {
 
         var options = {
             title: "Density of Precious Metals, in g/cm^3",
-            width: 600,
-            height: 400,
+//            width: 600,
+//            height: 400,
             bar: {groupWidth: "95%"},
             legend: {position: "none"},
         };
