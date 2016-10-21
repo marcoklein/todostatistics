@@ -77,7 +77,6 @@ var NumberOfItemsPerCompletedProjectChart = {
         var completedProjects = _.values(todoistData.projects);
         
         var projects = $.merge(completedProjects, TodoistData.sync.projects);
-//        projects = _.filter()
         
         
         console.log("Projects: " + projects);
@@ -90,6 +89,7 @@ var NumberOfItemsPerCompletedProjectChart = {
             }).length;
         });
 
+        // TODO fasse projekte mit gleichem namen zusammen
         for (var i = 0; i < projects.length; i++) {
             dataArray.push([
                 projects[i].name,
