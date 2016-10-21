@@ -73,24 +73,26 @@ var NumberOfItemsPerCompletedProjectChart = {
         
         var todoistData = TodoistData.completed;
         
-        // extract project ids to access projects later
-        var projectIds = _.keys(todoistData.projects);
-        var projects =
+        // extract project to access projects later
+        var completedProjects = _.values(todoistData.projects);
+        
+        var projects = $.merge(completedProjects, TodoistData.sync.projects);
+//        projects = _.filter()
         
         
-        console.log("Project ids: " + projectIds);
+        console.log("Projects: " + projects);
         
         var dataArray = [['Project', 'Number of Items']];
 
-        var itemCountArray = _.map(projectIds, function (projectId) {
+        var itemCountArray = _.map(projects, function (project) {
             return _.filter(todoistData.items, function (item) {
-                return "" + item.project_id === "" + projectId;
+                return "" + item.project_id === "" + project.id;
             }).length;
         });
 
-        for (var i = 0; i < projectIds.length; i++) {
+        for (var i = 0; i < projects.length; i++) {
             dataArray.push([
-                todoistData.projects[projectIds[i]].name,
+                projects[i].name,
                 itemCountArray[i]
             ]);
         }
