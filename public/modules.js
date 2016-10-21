@@ -36,7 +36,7 @@ var ProjectsAndItemsPieChart = {
     render: function () {
         var todoistData = TodoistData.sync;
 
-        var dataArray = [['Task', 'Hours per Day']];
+        var dataArray = [["Project", "Number of Items"]];
 
         var itemCountArray = _.map(todoistData.projects, function (project) {
             return _.filter(todoistData.items, function (item) {
@@ -69,8 +69,35 @@ var NumberOfItemsPerCompletedProjectChart = {
         if (!TodoistData.completed) {
             return; // completed is needed
         }
+        console.log(JSON.stringify(TodoistData.completed));
         
+        var todoistData = TodoistData.completed;
         
+        var dataArray = [['Project', 'Number of Items']];
+
+        var itemCountArray = _.map(todoistData.projects, function (project) {
+            return _.filter(todoistData.items, function (item) {
+                return item.project_id === project.id;
+            }).length;
+        });
+
+        for (var i = 0; i < todoistData.projects.length; i++) {
+            dataArray.push([
+                todoistData.projects[i].name,
+                itemCountArray[i]
+            ]);
+        }
+
+        var data = google.visualization.arrayToDataTable(
+                dataArray);
+
+        var options = {
+            title: 'Completed Projects'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('completedprojects'));
+
+        chart.draw(data, options);
         
         
         
@@ -171,5 +198,6 @@ google.charts.setOnLoadCallback(function () {
  */
 var AvailableModules = [
     ProjectsAndItemsPieChart,
-    NumberOfItemsPerDayColumnChart
+    NumberOfItemsPerDayColumnChart,
+    NumberOfItemsPerCompletedProjectChart
 ];

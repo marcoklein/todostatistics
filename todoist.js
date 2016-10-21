@@ -78,22 +78,23 @@ TodoistAPI.prototype.completed = {
                         // parse body
                         var body = JSON.parse(body);
 
-                        var items = body.items;
-                        console.log("Retrieved " + items.length + " items.");
+                        var body = body;
+                        console.log("Retrieved body with " + body.length + " entries.");
 
-                        for (var i = 0; i < items.length; i++) {
-                            allItems.push(items[i]);
+                        for (var i = 0; i < body.length; i++) {
+                            allItems.push(body[i]);
                         }
 
 
-                        if (items.length === 50) {
+                        if (body.items.length === 50) {
                             // make another request until no more item can be retrieved
                             getNextCompletedItems(token, offset + 50, allItems, function (allItems) {
                                 callback(allItems);
                             });
                         } else {
                             // all items retrieved
-                            console.log((offset + items.length) + " items recieved.");
+                            console.log((offset + body.items.length) + " items recieved.");
+                            console.log((offset + body.projects.length) + " projects recieved.");
                             callback(allItems);
                         }
                     }
