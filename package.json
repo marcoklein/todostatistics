@@ -1,0 +1,21 @@
+{
+  "name": "TodoistStatistics",
+  "version": "1.0.0",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": "marco",
+  "contributors": [],
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "request": "^2.75.0",
+    "rsvp": "^3.3.3"
+  }
+}

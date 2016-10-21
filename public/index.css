@@ -1,0 +1,26 @@
+
+
+
+
+
+.dashboard .row > * > * {
+    height: 300px;
+    margin: 0px;
+    padding: 0px;
+    background-color: red;
+}
+
+
+
+
+.module-value h1 {
+    padding-top: 100px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.module-value h3 {
+    color: white;
+    text-align: center;
+}
