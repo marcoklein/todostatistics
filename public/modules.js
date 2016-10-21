@@ -75,6 +75,9 @@ var NumberOfItemsPerCompletedProjectChart = {
         
         // extract project ids to access projects later
         var projectIds = _.keys(todoistData.projects);
+        var projects =
+        
+        
         console.log("Project ids: " + projectIds);
         
         var dataArray = [['Project', 'Number of Items']];
@@ -204,3 +207,12 @@ var AvailableModules = [
     NumberOfItemsPerDayColumnChart,
     NumberOfItemsPerCompletedProjectChart
 ];
+
+/**
+ * Make charts responsive.
+ * 
+ * @type type
+ */
+$(window).resize(function(){
+    renderDashboard();
+});
