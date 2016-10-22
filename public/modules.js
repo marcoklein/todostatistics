@@ -90,6 +90,11 @@ var NumberOfItemsPerCompletedProjectChart = {
         });
 
         // TODO fasse projekte mit gleichem namen zusammen
+        /*
+         * Alle completed items haben entweder ein projekt, das auch bereits completed ist
+         * oder ein noch aktives projekt.
+         * 
+         */
         for (var i = 0; i < projects.length; i++) {
             dataArray.push([
                 projects[i].name,
