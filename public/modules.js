@@ -156,7 +156,7 @@ var NumberOfItemsPerDayColumnChart = {
             2]);
 
         var options = {
-            title: "Density of Precious Metals, in g/cm^3",
+            title: "Completed Items per Weekday",
 //            width: 600,
 //            height: 400,
             bar: {groupWidth: "95%"},
