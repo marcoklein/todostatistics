@@ -172,6 +172,90 @@ var NumberOfItemsPerDayColumnChart = {
     }
 };
 
+var NumberOfItemsPerCompletedProjectChart = {
+    render: function () {
+        if (!TodoistData.completed) {
+            return; // completed is needed
+        }
+        
+        
+        var todoistData = TodoistData.completed;
+        
+        // extract project to access projects later
+        var completedProjects = _.values(todoistData.projects);
+        
+        var projects = $.merge(completedProjects, TodoistData.sync.projects);
+        
+        
+        console.log("Projects: " + projects);
+        
+        var dataArray = [['Project', 'Number of Items']];
+
+        var itemCountArray = _.map(projects, function (project) {
+            return _.filter(todoistData.items, function (item) {
+                return "" + item.project_id === "" + project.id;
+            }).length;
+        });
+
+        // TODO fasse projekte mit gleichem namen zusammen
+        for (var i = 0; i < projects.length; i++) {
+            dataArray.push([
+                projects[i].name,
+                itemCountArray[i]
+            ]);
+        }
+
+        var data = google.visualization.arrayToDataTable(
+                dataArray);
+
+        var options = {
+            title: 'Completed Projects'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('completed_projects'));
+
+        chart.draw(data, options);
+        
+        
+        
+        
+    }
+};
+
+var CompletedDateScatterChart = {
+    render: function () {
+        if (!TodoistData.completed) {
+            return; // no completed data
+        }
+        console.log("Response completed request.");
+
+        var completedItems = TodoistData.completed.items;
+
+        var dataArray = [["Counter", "Time"]];
+
+        for (var i = 0; i < completedItems.length; i++) {
+            var completedDate = convertDateToMoment(completedItems[i].completed_date);
+            dataArray.push([
+                i, 
+                completedDate.hours() + completedDate.minutes() / 60
+            ]);
+        }
+
+
+        //console.log(JSON.stringify(dataArray));
+
+        var data = google.visualization.arrayToDataTable(dataArray);
+
+        var options = {
+            title: "Completed Todo Time",
+            vAxis: {title: 'Time', minValue: 0, maxValue: 24},
+            legend: {position: "none"}
+        };
+        var chart = new google.visualization.ScatterChart(document.getElementById("chart_most_productive_time"));
+        chart.draw(data, options);
+    }
+};
+
 function getTodoistData() {
     $.post("/API/v7/sync", function (res) {
         TodoistData.sync = JSON.parse(res);
@@ -212,7 +296,8 @@ google.charts.setOnLoadCallback(function () {
 var AvailableModules = [
     ProjectsAndItemsPieChart,
     NumberOfItemsPerDayColumnChart,
-    NumberOfItemsPerCompletedProjectChart
+    NumberOfItemsPerCompletedProjectChart,
+    CompletedDateScatterChart
 ];
 
 /**
