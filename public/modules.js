@@ -72,9 +72,30 @@ var MostCompletedItem = {
             return; // completed is needed
         }
         
+        // get completed items
+        var items = TodoistData.completed.items;
+        
+        var mostCompletedItem = "<None Completed>";
+        var number = 0;
+        
+        _.each(items, function (item) {
+            
+            var numberOfCurrent = _.filter(items, function (itemFilter) {
+                return itemFilter.content === item.content; // compare only names
+            }).length;
+            
+            if (numberOfCurrent > number) {
+                // replace most completed item
+                number = numberOfCurrent;
+                mostCompletedItem = item.content;
+            }
+            
+        });
 
         // most_completed_item
-        $("#most_completed_item h1").text("asdf");
+        $("#most_completed_item h1").text(mostCompletedItem);
+        $("#most_completed_item h3").text("was completed " + number + " times");
+        
     }
 };
     
