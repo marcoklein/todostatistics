@@ -64,6 +64,21 @@ var ProjectsAndItemsPieChart = {
     }
 };
 
+
+
+var MostCompletedItem = {
+    render: function () {
+        if (!TodoistData.completed) {
+            return; // completed is needed
+        }
+        
+
+        // most_completed_item
+        $("#most_completed_item h1").text("asdf");
+    }
+};
+    
+
 var NumberOfItemsPerCompletedProjectChart = {
     render: function () {
         if (!TodoistData.completed) {
@@ -297,6 +312,7 @@ var AvailableModules = [
     ProjectsAndItemsPieChart,
     NumberOfItemsPerDayColumnChart,
     NumberOfItemsPerCompletedProjectChart,
+    MostCompletedItem,
     CompletedDateScatterChart
 ];
 
