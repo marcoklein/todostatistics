@@ -58,9 +58,10 @@ var ProjectsAndItemsPieChart = {
             title: 'Projects'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
+        $(".piechart").each(function (index, element) {
+            var chart = new google.visualization.PieChart(element);
+            chart.draw(data, options);
+        });
     }
 };
 
