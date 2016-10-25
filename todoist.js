@@ -18,7 +18,21 @@ var TodoistAPI = function (token) {
     this.activity.token = token;
 };
 
-TodoistAPI.prototype.sync = function sync() {
+/**
+ * Makes a sync call to the Todoist API.
+ * 
+ * Returns a Promise.
+ * 
+ * @param {type} resource_types
+ * @returns {nm$_todoist.TodoistAPI.prototype.sync.promise|nm$_todoist.TodoistAPI.prototype.sync.promise.syncPromise|Object.prototype.sync.promise}
+ */
+TodoistAPI.prototype.sync = function sync(resource_types) {
+    
+    if (!resource_types) {
+        // use all if no resource type is specified
+        resource_types = "[all]";
+    }
+    
     // message:
     // token
     // sync_token
