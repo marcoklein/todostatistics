@@ -173,6 +173,27 @@ app.post("/API/v7/completed/get_all", function (req, res) {
     }
 });
 
+app.post("/API/v7/activity/get", function (req, res) {
+    console.log("Activity get request with token " + req.session.access_token);
+    
+    if (req.session && req.session.access_token) {
+        var todoist = new TodoistAPI(req.session.access_token);
+        
+        todoist.activity.get().then(function (value) {
+            
+            console.log("Sending activity items.");
+            res.end(JSON.stringify(value));
+            
+        }).catch(function (error) {
+            console.log("Error activity items: " + error);
+        });
+        
+    } else {
+        console.log("Activity get_all request login refused");
+        res.end("You must login first.");
+    }
+});
+
 
 
 app.listen(3000, function () {
