@@ -42,13 +42,11 @@ app.get('/', function (req, res) {
     // access token is stored session
     var accessToken;
     if (req.session) {
+        // retrieve access token if possible
         accessToken  = req.session.access_token;
     } else {
         accessToken = null;
     }
-    
-    // test if access token is valid
-    
     
     // authorize user if not authorized
     if (!accessToken) {
@@ -70,8 +68,6 @@ app.get('/', function (req, res) {
         // redirect to home page
         var todoist = new TodoistAPI(accessToken);
         
-        // TODO add function todoist.valid()
-        
         
         todoist.sync().then(function (value) {
             console.log("Sync completed: " + value);
@@ -80,6 +76,12 @@ app.get('/', function (req, res) {
             
             
             res.render("index.html", { todoist_data: value, todoist_data_string: JSON.stringify(value) });
+        }).error(function (error) {
+            // could not make sync request
+            // -> access token may be invalid
+            // -> clear session access token and redirect user to login page
+            req.session.access_token = null;
+            redirect("/");
         });
     }
 });
