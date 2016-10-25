@@ -7,7 +7,7 @@
     height: 300px;
     margin: 0px;
     padding: 0px;
-    cursor: zoom-in;
+    /*cursor: zoom-in;*/
     border: 1px dashed lightgray;
     /*background-color: red;*/
 }
