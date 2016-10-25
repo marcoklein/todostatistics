@@ -19,7 +19,9 @@ var TodoistData = {
     /* All client data recieved by a sync request. */
     sync: null,
     /* All completed items and projects. May take long to load. */
-    completed: null
+    completed: null,
+    /* All activity items and projects. May take long to load. */
+    activity: null
 };
 
 
@@ -277,7 +279,17 @@ var CompletedDateScatterChart = {
                 completedDate.hours() + completedDate.minutes() / 60
             ]);
         }
-
+        
+         if (!TodoistData.activity) {
+             console.log("Bkas");
+            return; // no completed data
+        }
+        var activityItems = TodoistData.activity.items;
+        console.log("activity Items retreived");
+        console.log(activityItems.length + " items in activity log");
+        for (var i = 0; i < 20; i++) {
+            console.log("" + activityItems[i].id);
+        }
 
         //console.log(JSON.stringify(dataArray));
 
@@ -301,6 +313,11 @@ function getTodoistData() {
     
     $.post("/API/v7/completed/get_all", function (res) {
         TodoistData.completed = JSON.parse(res);
+        renderDashboard();
+    });
+    
+    $.post("/API/v7/activity/get", function (res) {
+        TodoistData.activity = JSON.parse(res);
         renderDashboard();
     });
     

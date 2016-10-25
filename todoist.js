@@ -15,6 +15,7 @@ var _ = require("underscore");
 var TodoistAPI = function (token) {
     this.token = token;
     this.completed.token = token;
+    this.activity.token = token;
 };
 
 TodoistAPI.prototype.sync = function sync() {
@@ -138,5 +139,83 @@ TodoistAPI.prototype.completed = {
     }
 };
 
+
+TodoistAPI.prototype.activity = {
+    get: function get() {
+        var self = this;
+        
+        
+        
+        /**
+         * Called recursively to get all completed items.
+         * 
+         * @param {type} token
+         * @param {type} offset
+         * @param {type} msgBody Holds items and projects see Todoist developer doc.
+         * @param {type} callback
+         * @returns {undefined}
+         */
+        function getNextActivityItems(token, offset, msgBody, callback) {
+
+            var tokenParams = "?";
+            tokenParams += "token=" + token;
+            tokenParams += "&";
+            tokenParams += "limit=100";
+            tokenParams += "&";
+            tokenParams += "offset=" + offset;
+
+//    console.log("Retrieving completed items with params: " + tokenParams);
+
+            request.get("https://todoist.com/API/v7/activity/get" + tokenParams,
+                    function (error, response, body) {
+                        if (error) {
+                            console.error("ERROR: Could not retrieve activity items: " + response);
+                            return;
+                        }
+                        // parse body
+                        items = JSON.parse(body);
+                        console.log("Retrieved " + items.length + " items.");
+                        
+                        // add items to all body
+                        for (var i = 0; i < items.length; i++) {
+                            msgBody.items.push(items[i]);
+                        }
+
+
+                        if (items.length === 100) {
+                            // make another request until no more item can be retrieved
+                            getNextActivityItems(token, offset + 100, msgBody, function (msgBody) {
+                                callback(msgBody);
+                            });
+                        } else {
+                            // all items retrieved
+                            console.log((msgBody.items.length) + " items recieved.");
+                            callback(msgBody);
+                        }
+                    }
+            );
+        };
+        
+        
+        var promise = new RSVP.Promise(function getAllActivityPromise(resolve, reject) {
+            console.log("Get all request with token: " + self.token);
+            getNextActivityItems(self.token, 0, { items: []}, function (msgBody) {
+                
+                //console.log("all items: " + JSON.stringify(allItems));
+
+                if (msgBody) {
+                    resolve(msgBody);
+                } else {
+                    reject("Could not retrieve all activity items.");
+                }
+            });
+            
+            
+        });
+
+
+        return promise;
+    }
+};
 
 module.exports = TodoistAPI;
