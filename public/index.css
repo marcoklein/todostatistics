@@ -7,20 +7,18 @@
     height: 300px;
     margin: 0px;
     padding: 0px;
-    background-color: red;
+    /*background-color: red;*/
 }
-
-
 
 
 .module-value h1 {
     padding-top: 100px;
-    color: white;
+    color: black;
     text-align: center;
     font-weight: bold;
 }
 
 .module-value h3 {
-    color: white;
+    color: gray;
     text-align: center;
 }
