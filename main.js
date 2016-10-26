@@ -4,7 +4,6 @@
 
 var bodyParser = require("body-parser");
 var request = require("request");
-var RSVP = require("RSVP");
 var fs = require("fs");
 
 var express = require('express');
@@ -249,6 +248,6 @@ app.post("/API/v7/activity/get", function (req, res) {
 
 
 
-app.listen(3012, function () {
-    console.log('Example app listening on port 3012!');
+app.listen(3000, function () {
+    console.log('Example app listening on port 3000!');
 });

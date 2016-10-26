@@ -12,12 +12,23 @@
     /*background-color: red;*/
 }
 
-.module-value h3 {
-    padding-top: 50px;
+.module-value-double h1 {
+    color: black;
+    text-align: center;
+    font-weight: bold;
+}
+
+.module-value-double h3 {
+    color: gray;
+    text-align: center;
+}
+
+.module-value-double:first-child {
+    padding-top: 80px;
 }
 
 .module-value h1 {
-    padding-top: 30px;
+    padding-top: 100px;
     color: black;
     text-align: center;
     font-weight: bold;
