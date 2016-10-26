@@ -4,6 +4,7 @@
 
 var bodyParser = require("body-parser");
 var request = require("request");
+var RSVP = require("RSVP");
 var fs = require("fs");
 
 var express = require('express');

@@ -63,7 +63,7 @@
         "beta": 0,
         "restriction": 3
       },
-      "completed_today": 6,
+      "completed_today": 2,
       "is_premium": true,
       "sort_order": 0,
       "full_name": "Marco",
@@ -71,7 +71,7 @@
       "join_date": "Tue 28 Apr 2015 16:05:30 +0000",
       "id": 4378857,
       "next_week": 1,
-      "completed_count": 1889,
+      "completed_count": 1892,
       "daily_goal": 3,
       "theme": 5,
       "tz_info": {
@@ -93,7 +93,7 @@
       "mobile_host": null,
       "premium_until": "Thu 03 Aug 2017 21:50:39 +0000",
       "token": "ca8513921ed5522f25edebf783d6d081df3611c9",
-      "karma": 15319,
+      "karma": 15341,
       "is_biz_admin": false,
       "default_reminder": "push"
     },
@@ -139,9 +139,9 @@
         "id": 9940047
       }
     ],
-    "sync_token": "1DWrCUhSP-e7lwdI_2xGrkUP1zQ1aBwQ-qc7y3NBMeFPcx9n4mbr8jnwgdzPq5nHYiJzR5BH_PrupKhXr3QixB9dWn4AIQKXVczfBzT9v9clyHk",
+    "sync_token": "qqNdABzn063nj05GDmMynsAGlk3fa_rdjj-Ni36nuY3WSHSY5CIY512PApk5mnIzeJzachAp9dmS6Saf28ADe2rWD3M-MuWMHU3Z_Yr3d0EoTdU",
     "day_orders": {
-      "34722972": 11,
+      "34722972": 12,
       "34777925": 4,
       "35434656": 16,
       "38274528": 3,
@@ -158,10 +158,10 @@
       "44754770": 20,
       "49268222": 1,
       "49776625": 1,
-      "50879002": 8,
+      "50879002": 9,
       "50903249": 2,
       "50903961": 4,
-      "50904044": 10,
+      "50904044": 11,
       "50904671": 1,
       "51080134": 1,
       "51141203": 1,
@@ -211,7 +211,6 @@
       "57081798": 4,
       "57117424": 6,
       "57120278": 15,
-      "57141205": 3,
       "57164560": 2,
       "57164639": 3,
       "57238553": 5,
@@ -225,7 +224,7 @@
       "58237864": 13,
       "58239410": 4,
       "58512066": 20,
-      "58604814": 5,
+      "58604814": 6,
       "58802868": 6,
       "58807677": 1,
       "58808950": 2,
@@ -266,7 +265,7 @@
       "59264725": 10,
       "59271118": 3,
       "59286212": 6,
-      "59314600": 9,
+      "59314600": 10,
       "59367967": 9,
       "59368139": 2,
       "59372755": 2,
@@ -326,7 +325,7 @@
       "61125593": 10,
       "61125639": 11,
       "61125662": 11,
-      "61128414": 7,
+      "61128414": 8,
       "61128868": 9,
       "61129563": 6,
       "61130680": 9,
@@ -384,13 +383,14 @@
       "63133535": 2,
       "63315620": 5,
       "63327580": 2,
-      "63353587": 4,
+      "63353587": 5,
       "63365318": 2,
       "63392496": 1,
       "63477675": 1,
       "63478054": 3,
       "63483608": 1,
-      "63572261": 6
+      "63572261": 7,
+      "63667032": 4
     },
     "projects": [
       {
@@ -541,11 +541,11 @@
         "email": "matthias.bidlingmeyer@gmail.com"
       }
     ],
-    "day_orders_timestamp": "1477418816.03",
+    "day_orders_timestamp": "1477474689.58",
     "live_notifications_last_read_id": 7046415,
     "items": [
       {
-        "day_order": 11,
+        "day_order": 12,
         "assigned_by_uid": null,
         "due_date_utc": "Wed 26 Oct 2016 21:59:59 +0000",
         "is_archived": 0,
@@ -887,7 +887,7 @@
         "date_string": "ev 2 weeks 11 pm"
       },
       {
-        "day_order": 8,
+        "day_order": 9,
         "assigned_by_uid": 4378857,
         "due_date_utc": "Wed 26 Oct 2016 21:00:00 +0000",
         "is_archived": 0,
@@ -965,7 +965,7 @@
         "date_string": "every first sunday of month"
       },
       {
-        "day_order": 10,
+        "day_order": 11,
         "assigned_by_uid": 4378857,
         "due_date_utc": "Wed 26 Oct 2016 21:30:00 +0000",
         "is_archived": 0,
@@ -2275,7 +2275,7 @@
         "date_string": "Feb 28 2017"
       },
       {
-        "day_order": 5,
+        "day_order": 6,
         "assigned_by_uid": null,
         "due_date_utc": "Wed 26 Oct 2016 16:00:00 +0000",
         "is_archived": 0,
@@ -2803,7 +2803,7 @@
         "date_string": "29 Oct"
       },
       {
-        "day_order": 9,
+        "day_order": 10,
         "assigned_by_uid": null,
         "due_date_utc": "Wed 26 Oct 2016 21:00:00 +0000",
         "is_archived": 0,
@@ -3067,7 +3067,7 @@
         "date_string": "1 Nov"
       },
       {
-        "day_order": 7,
+        "day_order": 8,
         "assigned_by_uid": null,
         "due_date_utc": "Wed 26 Oct 2016 21:00:00 +0000",
         "is_archived": 0,
@@ -3411,32 +3411,6 @@
         "date_string": null
       },
       {
-        "day_order": 1,
-        "assigned_by_uid": null,
-        "due_date_utc": "Wed 26 Oct 2016 10:00:00 +0000",
-        "is_archived": 0,
-        "labels": [],
-        "sync_id": null,
-        "all_day": false,
-        "in_history": 0,
-        "date_added": "Wed 19 Oct 2016 13:14:07 +0000",
-        "checked": 0,
-        "date_lang": "en",
-        "id": 62532601,
-        "content": "Studi Guthaben aufladen",
-        "indent": 1,
-        "user_id": 4378857,
-        "has_more_notes": false,
-        "is_deleted": 0,
-        "priority": 3,
-        "parent_id": null,
-        "item_order": 5,
-        "responsible_uid": null,
-        "project_id": 161370461,
-        "collapsed": 0,
-        "date_string": "Oct 26 12:00PM"
-      },
-      {
         "day_order": 2,
         "assigned_by_uid": null,
         "due_date_utc": "Sun 13 Nov 2016 22:59:59 +0000",
@@ -3567,33 +3541,7 @@
         "date_string": null
       },
       {
-        "day_order": 2,
-        "assigned_by_uid": 4378857,
-        "due_date_utc": "Sat 29 Oct 2016 16:00:00 +0000",
-        "is_archived": 0,
-        "labels": [],
-        "sync_id": 46104507,
-        "all_day": false,
-        "in_history": 0,
-        "date_added": "Mon 24 Oct 2016 15:04:14 +0000",
-        "checked": 0,
-        "date_lang": "en",
-        "id": 63327580,
-        "content": "Todoist statistics: Caching system",
-        "indent": 1,
-        "user_id": 4378857,
-        "has_more_notes": false,
-        "is_deleted": 0,
-        "priority": 3,
-        "parent_id": null,
-        "item_order": 2,
-        "responsible_uid": null,
-        "project_id": 180503990,
-        "collapsed": 0,
-        "date_string": "29 Oct 18:00"
-      },
-      {
-        "day_order": 4,
+        "day_order": 5,
         "assigned_by_uid": 4378857,
         "due_date_utc": "Wed 26 Oct 2016 16:00:00 +0000",
         "is_archived": 0,
@@ -3617,32 +3565,6 @@
         "project_id": 161298254,
         "collapsed": 0,
         "date_string": "26 Oct 18:00"
-      },
-      {
-        "day_order": 1,
-        "assigned_by_uid": null,
-        "due_date_utc": "Sat 05 Nov 2016 22:59:59 +0000",
-        "is_archived": 0,
-        "labels": [],
-        "sync_id": 46135111,
-        "all_day": true,
-        "in_history": 0,
-        "date_added": "Mon 24 Oct 2016 21:05:01 +0000",
-        "checked": 0,
-        "date_lang": "en",
-        "id": 63392496,
-        "content": "Todoist statistics: show dashboard module as fullscreen",
-        "indent": 1,
-        "user_id": 4378857,
-        "has_more_notes": false,
-        "is_deleted": 0,
-        "priority": 3,
-        "parent_id": null,
-        "item_order": 3,
-        "responsible_uid": null,
-        "project_id": 180503990,
-        "collapsed": 0,
-        "date_string": "Nov 5"
       },
       {
         "day_order": 1,
@@ -3697,33 +3619,7 @@
         "date_string": "31 Oct"
       },
       {
-        "day_order": 1,
-        "assigned_by_uid": 4378857,
-        "due_date_utc": "Tue 15 Nov 2016 17:00:00 +0000",
-        "is_archived": 0,
-        "labels": [],
-        "sync_id": 46172440,
-        "all_day": false,
-        "in_history": 0,
-        "date_added": "Tue 25 Oct 2016 10:14:55 +0000",
-        "checked": 0,
-        "date_lang": "en",
-        "id": 63483608,
-        "content": "TodoistStatistics: Resize entprellen",
-        "indent": 1,
-        "user_id": 4378857,
-        "has_more_notes": false,
-        "is_deleted": 0,
-        "priority": 3,
-        "parent_id": null,
-        "item_order": 5,
-        "responsible_uid": null,
-        "project_id": 180503990,
-        "collapsed": 0,
-        "date_string": "15 Nov 18:00"
-      },
-      {
-        "day_order": 6,
+        "day_order": 7,
         "assigned_by_uid": null,
         "due_date_utc": "Wed 26 Oct 2016 16:00:00 +0000",
         "is_archived": 0,
@@ -3747,6 +3643,58 @@
         "project_id": 161298254,
         "collapsed": 0,
         "date_string": "Oct 26 6:00PM"
+      },
+      {
+        "day_order": 4,
+        "assigned_by_uid": 4378857,
+        "due_date_utc": "Wed 26 Oct 2016 16:00:00 +0000",
+        "is_archived": 0,
+        "labels": [],
+        "sync_id": null,
+        "all_day": false,
+        "in_history": 0,
+        "date_added": "Wed 26 Oct 2016 08:03:28 +0000",
+        "checked": 0,
+        "date_lang": "en",
+        "id": 63667032,
+        "content": "phlichtenheft",
+        "indent": 1,
+        "user_id": 4378857,
+        "has_more_notes": false,
+        "is_deleted": 0,
+        "priority": 4,
+        "parent_id": null,
+        "item_order": 6,
+        "responsible_uid": null,
+        "project_id": 161370461,
+        "collapsed": 0,
+        "date_string": "26 Oct 18:00"
+      },
+      {
+        "day_order": -1,
+        "assigned_by_uid": 4378857,
+        "due_date_utc": null,
+        "is_archived": 0,
+        "labels": [],
+        "sync_id": 46254180,
+        "all_day": false,
+        "in_history": 0,
+        "date_added": "Wed 26 Oct 2016 08:04:52 +0000",
+        "checked": 0,
+        "date_lang": "en",
+        "id": 63667201,
+        "content": "TodoistStatistics: netbeans sass http://stackoverflow.com/questions/25965982/how-to-use-sass-with-netbeans-8-0-1",
+        "indent": 1,
+        "user_id": 4378857,
+        "has_more_notes": false,
+        "is_deleted": 0,
+        "priority": 1,
+        "parent_id": null,
+        "item_order": 6,
+        "responsible_uid": null,
+        "project_id": 180503990,
+        "collapsed": 0,
+        "date_string": ""
       }
     ],
     "notes": [
@@ -4366,6 +4314,24 @@
   },
   "completed": {
     "items": [
+      {
+        "content": "TodoistStatistics: Resize entprellen",
+        "meta_data": null,
+        "user_id": 4378857,
+        "task_id": 63483608,
+        "project_id": 180503990,
+        "completed_date": "Wed 26 Oct 2016 12:35:00 +0000",
+        "id": 63483608
+      },
+      {
+        "content": "Todoist statistics: Caching system",
+        "meta_data": null,
+        "user_id": 4378857,
+        "task_id": 63327580,
+        "project_id": 180503990,
+        "completed_date": "Tue 25 Oct 2016 19:52:37 +0000",
+        "id": 63327580
+      },
       {
         "content": "plan todolist of next day @One_Pomodoro",
         "meta_data": null,
@@ -21528,20 +21494,131 @@
         "is_archived": 0
       },
       "145834591": {
+        "indent": 1,
         "name": "A Better You",
         "color": 0,
+        "is_deleted": 1,
         "collapsed": 0,
-        "id": 145834591,
         "parent_id": null,
         "item_order": 1,
+        "is_archived": 0,
+        "id": 145834591
+      },
+      "145834876": {
         "indent": 1,
+        "name": "Study",
+        "color": 11,
         "is_deleted": 1,
-        "is_archived": 0
+        "collapsed": 0,
+        "parent_id": null,
+        "item_order": 2,
+        "is_archived": 0,
+        "id": 145834876
       }
     }
   },
   "activity": {
     "items": [
+      {
+        "parent_project_id": 180503990,
+        "parent_item_id": null,
+        "event_type": "completed",
+        "object_type": "item",
+        "object_id": 63483608,
+        "initiator_id": 4378857,
+        "event_date": "Wed 26 Oct 2016 12:35:05 +0000",
+        "extra_data": {
+          "content": "TodoistStatistics: Resize entprellen",
+          "client": "Mozilla/5.0; Todoist/830"
+        },
+        "id": 1310745293
+      },
+      {
+        "parent_project_id": 180503990,
+        "parent_item_id": null,
+        "event_type": "deleted",
+        "object_type": "item",
+        "object_id": 63392496,
+        "initiator_id": 4378857,
+        "event_date": "Wed 26 Oct 2016 08:05:34 +0000",
+        "extra_data": {
+          "content": "Todoist statistics: show dashboard module as fullscreen",
+          "client": "Mozilla/5.0; Todoist/832"
+        },
+        "id": 1309974520
+      },
+      {
+        "parent_project_id": 180503990,
+        "parent_item_id": null,
+        "event_type": "updated",
+        "object_type": "item",
+        "object_id": 63667201,
+        "initiator_id": 4378857,
+        "event_date": "Wed 26 Oct 2016 08:05:17 +0000",
+        "extra_data": {
+          "content": "TodoistStatistics: netbeans sass http://stackoverflow.com/questions/25965982/how-to-use-sass-with-netbeans-8-0-1",
+          "last_content": "TodoistStatistics: netbeans sass",
+          "client": "Mozilla/5.0; Todoist/832"
+        },
+        "id": 1309973867
+      },
+      {
+        "parent_project_id": 180503990,
+        "parent_item_id": null,
+        "event_type": "added",
+        "object_type": "item",
+        "object_id": 63667201,
+        "initiator_id": 4378857,
+        "event_date": "Wed 26 Oct 2016 08:04:53 +0000",
+        "extra_data": {
+          "content": "TodoistStatistics: netbeans sass",
+          "client": "Mozilla/5.0; Todoist/832"
+        },
+        "id": 1309972979
+      },
+      {
+        "parent_project_id": 161370461,
+        "parent_item_id": null,
+        "event_type": "updated",
+        "object_type": "item",
+        "object_id": 63667032,
+        "initiator_id": null,
+        "event_date": "Wed 26 Oct 2016 08:04:40 +0000",
+        "extra_data": {
+          "content": "phlichtenheft",
+          "last_content": "phlichtenheft #Uni",
+          "client": "Mozilla/5.0; Todoist/832"
+        },
+        "id": 1309971966
+      },
+      {
+        "parent_project_id": 142912691,
+        "parent_item_id": null,
+        "event_type": "added",
+        "object_type": "item",
+        "object_id": 63667032,
+        "initiator_id": null,
+        "event_date": "Wed 26 Oct 2016 08:03:36 +0000",
+        "extra_data": {
+          "content": "phlichtenheft #Uni",
+          "client": "Mozilla/5.0; Todoist/830"
+        },
+        "id": 1309968833
+      },
+      {
+        "parent_project_id": 180503990,
+        "parent_item_id": null,
+        "event_type": "completed",
+        "object_type": "item",
+        "object_id": 63327580,
+        "initiator_id": 4378857,
+        "event_date": "Tue 25 Oct 2016 19:52:38 +0000",
+        "extra_data": {
+          "content": "Todoist statistics: Caching system",
+          "client": "Mozilla/5.0; Todoist/830"
+        },
+        "id": 1308473348
+      },
       {
         "parent_project_id": 161298254,
         "parent_item_id": null,
