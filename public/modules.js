@@ -101,7 +101,75 @@ var MostCompletedItem = {
         
     }
 };
-    
+   
+/**
+ * Item which has been postponed the most.
+ * 
+ * @type type
+ */
+var MostPostponedItem = {
+    render: function () {
+        if (!TodoistData.activity) {
+            return; // completed is needed
+        }
+        
+        // get activity
+        var activity = TodoistData.activity.items;
+        
+        var mostPostponedItem = "<None Postponed>";
+        var number = 0;
+        
+        
+        // filter out all none items
+        var itemActivity = _.filter(activity, function (itemFilter) {
+            return itemFilter.event_type === "updated" && itemFilter.object_type === "item";
+        });
+        
+        // compare only active items
+        var items = TodoistData.sync.items;
+        
+        _.each(items, function (log) {
+            
+            var postponedCount = _.filter(itemActivity, function (itemFilter) {
+                if (log.content === itemFilter.extra_data.content) {
+                    // both items match each other
+                    // test if the item is really postponed
+                    
+                    var lastDueDate = convertDateToMoment(itemFilter.extra_data.last_due_date);
+                    var dueDate = convertDateToMoment(itemFilter.extra_data.due_date);
+                    
+                    var completedDate = convertDateToMoment(itemFilter.event_date);
+                    
+                    // last Due Date before current due date?
+                    if (dueDate.years() <= completedDate.years()
+                            && dueDate.months() <= completedDate.months()
+                            && dueDate.days() <= completedDate.days()) {
+                        // yes its before the day or on the occuring day
+                        
+                        // really postponed?
+                        if (dueDate.years() <= lastDueDate.years()
+                                && dueDate.months() <= lastDueDate.months()
+                                && dueDate.days() <= lastDueDate.days()) {
+                            // really postponed
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }).length;
+            
+            if (postponedCount > number) {
+                number = postponedCount;
+                mostPostponedItem = log.content;
+            }
+        });
+
+        // most_completed_item
+        $("#most_postponed_item h1").text(mostPostponedItem);
+        $("#most_postponed_item h3").text("was postponed " + number + " times");
+        
+    }
+};
 
 var NumberOfItemsPerCompletedProjectChart = {
     render: function () {
@@ -352,7 +420,8 @@ var AvailableModules = [
     NumberOfItemsPerDayColumnChart,
     NumberOfItemsPerCompletedProjectChart,
     MostCompletedItem,
-    CompletedDateScatterChart
+    CompletedDateScatterChart,
+    MostPostponedItem
 ];
 
 /**

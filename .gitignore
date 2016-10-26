@@ -1,3 +1,6 @@
+store/*
+testjson.json
+
 nbproject/private/
 build/
 nbbuild/
