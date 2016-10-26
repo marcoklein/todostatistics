@@ -82,6 +82,7 @@ app.get('/', function (req, res) {
             
             res.render("index.html", { todoist_data: value, todoist_data_string: JSON.stringify(value) });
         }).catch(function (error) {
+            console.error("Token invalid: redirecting user and clearing access token: " + error);
             // could not make sync request
             // -> access token may be invalid
             // -> clear session access token and redirect user to login page
