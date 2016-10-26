@@ -57,16 +57,6 @@ app.get('/', function (req, res) {
         // user has to press start on landing page
         res.render("landingPage.html");
 
-//        var params = "?";
-//        // add client id
-//        params += "client_id=" + TODOIST_CLIENT_ID;
-//        params += "&";
-//        params += "scope=" + TODOIST_SCOPE;
-//        params += "&";
-//        params += "state=" + "secretstring"; // TODO replace state with random string
-//
-//        // redirect to todoist oauth authorization site
-//        res.redirect("https://todoist.com/oauth/authorize" + params);
     } else {
         // user is authorized
         console.log("User is authorized.");
@@ -99,6 +89,19 @@ app.get('/', function (req, res) {
             redirect("/");
         });
     }
+});
+
+app.get("/login", function (req, res) {
+    var params = "?";
+    // add client id
+    params += "client_id=" + TODOIST_CLIENT_ID;
+    params += "&";
+    params += "scope=" + TODOIST_SCOPE;
+    params += "&";
+    params += "state=" + "secretstring"; // TODO replace state with random string
+
+    // redirect to todoist oauth authorization site
+    res.redirect("https://todoist.com/oauth/authorize" + params);
 });
 
 // referall url after OAuth authorization
