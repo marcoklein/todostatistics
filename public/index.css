@@ -12,10 +12,12 @@
     /*background-color: red;*/
 }
 
-
+.module-value h3 {
+    padding-top: 50px;
+}
 
 .module-value h1 {
-    padding-top: 100px;
+    padding-top: 30px;
     color: black;
     text-align: center;
     font-weight: bold;
@@ -26,3 +28,14 @@
     text-align: center;
 }
 
+.relative-position {
+    position: relative;
+}
+/*
+show load animation in bottom right corner
+*/
+.load-icon-container {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+}
