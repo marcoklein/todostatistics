@@ -65,10 +65,7 @@ app.get('/', function (req, res) {
         var todoist = new TodoistAPI(accessToken);
         
         
-        todoist.sync().then(function (value) {
-            console.log("Sync completed: " + value);
-            
-            console.log("Completed count: " + value.user.completed_count);
+        todoist.sync(["user"]).then(function (value) {
             
             // get user id
             var userId = value.user.id;
@@ -77,10 +74,10 @@ app.get('/', function (req, res) {
             req.session.user_id = userId;
             
             
-            userCache.put(userId, "sync", value);
+            //userCache.put(userId, "sync", value);
             
             
-            res.render("index.html", { todoist_data: value, todoist_data_string: JSON.stringify(value) });
+            res.render("index.html", { user_name: value.user.full_name, completed_count: value.user.completed_count });
         }).catch(function (error) {
             // could not make sync request
             // -> access token may be invalid
