@@ -67,8 +67,6 @@ var ProjectsAndItemsPieChart = {
     }
 };
 
-
-
 var MostCompletedItem = {
     render: function () {
         if (!TodoistData.completed) {
