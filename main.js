@@ -53,17 +53,20 @@ app.get('/', function (req, res) {
     
     // authorize user if not authorized
     if (!accessToken) {
+        
+        // user has to press start on landing page
+        res.render("landingPage.html");
 
-        var params = "?";
-        // add client id
-        params += "client_id=" + TODOIST_CLIENT_ID;
-        params += "&";
-        params += "scope=" + TODOIST_SCOPE;
-        params += "&";
-        params += "state=" + "secretstring"; // TODO replace state with random string
-
-        // redirect to todoist oauth authorization site
-        res.redirect("https://todoist.com/oauth/authorize" + params);
+//        var params = "?";
+//        // add client id
+//        params += "client_id=" + TODOIST_CLIENT_ID;
+//        params += "&";
+//        params += "scope=" + TODOIST_SCOPE;
+//        params += "&";
+//        params += "state=" + "secretstring"; // TODO replace state with random string
+//
+//        // redirect to todoist oauth authorization site
+//        res.redirect("https://todoist.com/oauth/authorize" + params);
     } else {
         // user is authorized
         console.log("User is authorized.");
