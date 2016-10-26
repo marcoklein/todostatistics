@@ -1,7 +1,9 @@
 
 
 
-
+.dashboard .row > * {
+    margin-top: 16px;
+}
 
 .dashboard .row > * > * {
     height: 300px;
