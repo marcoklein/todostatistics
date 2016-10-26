@@ -244,16 +244,27 @@ var NumberOfItemsPerDayColumnChart = {
         });
 
         var arrayData = [];
+        var sum = 0;
+        
+        
+        for (var i = 0; i < shortWeekdays.length; i++) {
+            sum += shortWeekdays[i];
+        }
+
+        // make percent out of it
+        shortWeekdays = _.map(shortWeekdays, function (number) {
+            return Math.floor((number / sum) * 100);
+        });
+
 
         for (var i = 0; i < weekdays.length; i++) {
             arrayData.push([weekdays[i], shortWeekdays[i], "blue"]);
         }
 
-
         //console.log(JSON.stringify(arrayData));
 
 
-        var dataArray = $.merge([["Element", "Density", {role: "style"}]], arrayData);
+        var dataArray = $.merge([["Element", "Percent", {role: "style"}]], arrayData);
 
         var data = google.visualization.arrayToDataTable(dataArray);
 
@@ -266,7 +277,7 @@ var NumberOfItemsPerDayColumnChart = {
             2]);
 
         var options = {
-            title: "Completed Items per Weekday",
+            title: "Average number of completed items per day.",
 //            width: 600,
 //            height: 400,
             bar: {groupWidth: "95%"},
