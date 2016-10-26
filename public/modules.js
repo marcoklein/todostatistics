@@ -351,11 +351,11 @@ var CompletedDateScatterChart = {
             return; // no completed data
         }
         var activityItems = TodoistData.activity.items;
-        console.log("activity Items retreived");
-        console.log(activityItems.length + " items in activity log");
-        for (var i = 0; i < 20; i++) {
-            console.log("" + activityItems[i].id);
-        }
+//        console.log("activity Items retreived");
+//        console.log(activityItems.length + " items in activity log");
+//        for (var i = 0; i < 20; i++) {
+//            console.log("" + activityItems[i].id);
+//        }
 
         //console.log(JSON.stringify(dataArray));
 
@@ -422,11 +422,21 @@ var AvailableModules = [
     MostPostponedItem
 ];
 
+
 /**
  * Make charts responsive.
  * 
  * @type type
  */
+var resizeTimeout = null;
 $(window).resize(function(){
-    renderDashboard();
+    if (resizeTimeout) {
+        // clear existing timeout
+        clearTimeout(resizeTimeout);
+    }
+    // set timeout to debounce resize
+    resizeTimeout = setTimeout(function () {
+//        console.log("Render");
+        renderDashboard();
+    }, 50); // render after 100ms of inactivity after resize
 });
