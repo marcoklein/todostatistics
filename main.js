@@ -164,11 +164,7 @@ app.get("/oauth", function (req, res) {
 //                    getAllCompletedItems(accessToken);
                     req.session.access_token = accessToken;
                     
-//                    if (options.production) {
-//                        res.redirect(PRODUCTION_DOMAIN + "/");
-//                    } else {
                     res.redirect("/");
-//                    }
                 } else {
                     console.error("ERROR: " + response.statusCode + " Access token could not be requested: " + error);
                     console.error(JSON.stringify(body));
