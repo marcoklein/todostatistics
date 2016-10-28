@@ -56,10 +56,9 @@
                 </div>
                 <div class="col-md-4">
                     <div class="relative-position">
-                        <div class="module-value-double">
-                            <h3>You have completed</h3>
+                        <div class="module-value">
                             <h1><%= todoist_data.user.completed_today %></h1>
-                            <h3>item<%= todoist_data.user.completed_today === 1 ? "": "s"%> today.</h3>
+                            <h3>Completed item<%= todoist_data.user.completed_today === 1 ? "": "s"%> today.</h3>
 
                         </div>
                         <div class="load-icon-container">
@@ -125,6 +124,14 @@
 
                     <div id="chart_most_productive_day">
 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="chart_most_productive_time">
+                        
                     </div>
                 </div>
             </div>

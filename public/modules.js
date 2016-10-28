@@ -139,14 +139,14 @@ var MostPostponedItem = {
                     var completedDate = convertDateToMoment(itemFilter.event_date);
                     
                     // last Due Date before current due date?
-                    if (dueDate.years() <= completedDate.years()
-                            && dueDate.months() <= completedDate.months()
+                    if (dueDate.year() <= completedDate.year()
+                            && dueDate.month() <= completedDate.month()
                             && dueDate.days() <= completedDate.days()) {
                         // yes its before the day or on the occuring day
                         
                         // really postponed?
-                        if (dueDate.years() <= lastDueDate.years()
-                                && dueDate.months() <= lastDueDate.months()
+                        if (dueDate.year() <= lastDueDate.year()
+                                && dueDate.month() <= lastDueDate.month()
                                 && dueDate.days() <= lastDueDate.days()) {
                             // really postponed
                             return true;
@@ -170,6 +170,61 @@ var MostPostponedItem = {
 };
 
 var NumberOfItemsPerCompletedProjectChart = {
+    render: function () {
+        if (!TodoistData.completed) {
+            return; // completed is needed
+        }
+        
+        
+        var todoistData = TodoistData.completed;
+        
+        // extract project to access projects later
+        var completedProjects = _.values(todoistData.projects);
+        
+        var projects = $.merge(completedProjects, TodoistData.sync.projects);
+        
+        
+        console.log("Projects: " + projects);
+        
+        var dataArray = [['Project', 'Number of Items']];
+
+        var itemCountArray = _.map(projects, function (project) {
+            return _.filter(todoistData.items, function (item) {
+                return "" + item.project_id === "" + project.id;
+            }).length;
+        });
+
+        // TODO fasse projekte mit gleichem namen zusammen
+        /*
+         * Alle completed items haben entweder ein projekt, das auch bereits completed ist
+         * oder ein noch aktives projekt.
+         * 
+         */
+        for (var i = 0; i < projects.length; i++) {
+            dataArray.push([
+                projects[i].name,
+                itemCountArray[i]
+            ]);
+        }
+
+        var data = google.visualization.arrayToDataTable(
+                dataArray);
+
+        var options = {
+            title: 'Completed Projects'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('completed_projects'));
+
+        chart.draw(data, options);
+        
+        
+        
+        
+    }
+};
+
+var NumberOfCompletedItemsPerActiveProjectChart = {
     render: function () {
         if (!TodoistData.completed) {
             return; // completed is needed
