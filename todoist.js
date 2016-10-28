@@ -82,14 +82,15 @@ TodoistAPI.prototype.completed = {
         var self = this;
 
 
-        var userOptions = null;
+        var userOptions;
         if (options) {
+            userOptions = "";
             // attach options
-            _.each(Object.keys(options), function (option) {
-                options += "&";
-                options += option;
-                options += "=";
-                options += options[option];
+            _.each(_.keys(options), function (option) {
+                userOptions += "&";
+                userOptions += option;
+                userOptions += "=";
+                userOptions += options[option];
             });
         }
         
@@ -114,6 +115,7 @@ TodoistAPI.prototype.completed = {
             if (userOptions) {
                 tokenParams += userOptions;
             }
+            console.log("Completed request: " + tokenParams);
 
 //    console.log("Retrieving completed items with params: " + tokenParams);
 
@@ -191,14 +193,15 @@ TodoistAPI.prototype.activity = {
         var self = this;
         
         
-        var userOptions = null;
+        var userOptions;
         if (options) {
+            userOptions = "";
             // attach options
-            _.each(Object.keys(options), function (option) {
-                options += "&";
-                options += option;
-                options += "=";
-                options += options[option];
+            _.each(_.keys(options), function (option) {
+                userOptions += "&";
+                userOptions += option;
+                userOptions += "=";
+                userOptions += options[option];
             });
         }
         
