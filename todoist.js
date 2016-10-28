@@ -5,7 +5,7 @@
  */
 
 var request = require("request");
-var RSVP = require("RSVP");
+var RSVP = require("promise");
 var _ = require("underscore");
 
 /**

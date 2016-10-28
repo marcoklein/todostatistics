@@ -16,8 +16,8 @@
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "json-fs-store": "^1.0.1",
+    "promise": "^7.1.1",
     "request": "^2.75.0",
-    "rsvp": "^3.3.3",
     "underscore": "^1.8.3"
   }
 }
