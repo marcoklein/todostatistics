@@ -124,7 +124,7 @@ app.get("/login", function (req, res) {
 });
 
 // referall url after OAuth authorization
-app.get("/outh", function (req, res) {
+app.get("/oauth", function (req, res) {
     // response contains access code and state
     
     if (req.query.state !== "secretstring") {
