@@ -25,13 +25,25 @@ app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
 
 
+// extract production flag
+var commandLineArgs = require("command-line-args");
+var optionDefinitions = [
+    { name: "production", alias: "p", type: Boolean }
+];
+var options = commandLineArgs(optionDefinitions);
 
+// constants to access Todoist App
 
-
-var TODOIST_CLIENT_ID = "dfe159c316fc4e938f318a09a791e8c8";
-var TODOIST_CLIENT_SECRET = "d51db700ba4d4a91ae71b1459325ccc0";
-var TODOIST_TEST_TOKEN = "987bbd06dcc9865cdcede3eda431fe94dd470031";
+var TODOIST_CLIENT_ID = options.production ? "dfe159c316fc4e938f318a09a791e8c8" : "81ec6427a0a349e4934f939df243eb03";
+var TODOIST_CLIENT_SECRET = options.production ? "d51db700ba4d4a91ae71b1459325ccc0" : "a42733352c684f01a4505e51a29cb93d";
 var TODOIST_SCOPE = "data:read";
+
+
+var PORT = 3012;
+
+
+
+// project libs
 
 var TodoistAPI = require("./todoist.js");
 
@@ -248,6 +260,6 @@ app.post("/API/v7/activity/get", function (req, res) {
 
 
 
-app.listen(3012, function () {
-    console.log('Example app listening on port 3012!');
+app.listen(PORT, function () {
+    console.log("Example app listening on port " + PORT + "!");
 });

@@ -11,10 +11,12 @@
   "author": "marco",
   "contributors": [],
   "scripts": {
-    "start": "node main.js" 
+    "start": "node main.js",
+    "production": "node main.js --production"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
+    "command-line-args": "^3.0.1",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
