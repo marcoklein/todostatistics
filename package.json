@@ -12,7 +12,6 @@
   "contributors": [],
   "scripts": {
     "start": "node main.js",
-    "production": "node main.js --production"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
