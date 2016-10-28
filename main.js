@@ -38,7 +38,7 @@ if (options.production) {
 
 // constants to access Todoist App
 
-var PRODUCTION_DOMAIN = "http://todostatistics.marco-klein.com";
+var PRODUCTION_DOMAIN = "https://todostatistics.marco-klein.com";
 
 var TODOIST_CLIENT_ID = options.production ? "dfe159c316fc4e938f318a09a791e8c8" : "81ec6427a0a349e4934f939df243eb03";
 var TODOIST_CLIENT_SECRET = options.production ? "d51db700ba4d4a91ae71b1459325ccc0" : "a42733352c684f01a4505e51a29cb93d";
