@@ -69,10 +69,29 @@ TodoistAPI.prototype.sync = function sync(resource_types) {
 };
 
 TodoistAPI.prototype.completed = {
-    get_all: function get_all() {
+    /**
+     * Returns all completed items. Provided options are optional.
+     * 
+     * This method may take some time because it can only retrieve 50 items per
+     * request. Requests are sent until no more items are retrieved.
+     * 
+     * @param {type} options See https://developer.todoist.com/?shell#get-all-completed-items for complete reference.
+     * @returns {Promise} 
+     */
+    get_all: function get_all(options) {
         var self = this;
-        
-        
+
+
+        var userOptions = null;
+        if (options) {
+            // attach options
+            _.each(Object.keys(options), function (option) {
+                options += "&";
+                options += option;
+                options += "=";
+                options += options[option];
+            });
+        }
         
         /**
          * Called recursively to get all completed items.
@@ -91,6 +110,10 @@ TodoistAPI.prototype.completed = {
             tokenParams += "limit=50";
             tokenParams += "&";
             tokenParams += "offset=" + offset;
+            // add user options if defined
+            if (userOptions) {
+                tokenParams += userOptions;
+            }
 
 //    console.log("Retrieving completed items with params: " + tokenParams);
 
@@ -155,10 +178,29 @@ TodoistAPI.prototype.completed = {
 
 
 TodoistAPI.prototype.activity = {
-    get: function get() {
+    /**
+     * Requests and returns the activity. Provided options are optional.
+     * 
+     * This method may take some time because it can only retrieve 100 items per
+     * request. Requests are sent until no more items are retrieved.
+     * 
+     * @param {type} options See https://developer.todoist.com/?shell#get-activity-logs for complete reference.
+     * @returns {Promise} 
+     */
+    get: function get(options) {
         var self = this;
         
         
+        var userOptions = null;
+        if (options) {
+            // attach options
+            _.each(Object.keys(options), function (option) {
+                options += "&";
+                options += option;
+                options += "=";
+                options += options[option];
+            });
+        }
         
         /**
          * Called recursively to get all completed items.
@@ -177,6 +219,10 @@ TodoistAPI.prototype.activity = {
             tokenParams += "limit=100";
             tokenParams += "&";
             tokenParams += "offset=" + offset;
+            // add user options if defined
+            if (userOptions) {
+                tokenParams += userOptions;
+            }
 
 //    console.log("Retrieving completed items with params: " + tokenParams);
 
