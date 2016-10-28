@@ -133,10 +133,10 @@ var MostPostponedItem = {
                     // both items match each other
                     // test if the item is really postponed
                     
-                    var lastDueDate = convertDateToMoment(itemFilter.extra_data.last_due_date);
-                    var dueDate = convertDateToMoment(itemFilter.extra_data.due_date);
+                    var lastDueDate = ModuleUtils.convertDateToMoment(itemFilter.extra_data.last_due_date);
+                    var dueDate = ModuleUtils.convertDateToMoment(itemFilter.extra_data.due_date);
                     
-                    var completedDate = convertDateToMoment(itemFilter.event_date);
+                    var completedDate = ModuleUtils.convertDateToMoment(itemFilter.event_date);
                     
                     // last Due Date before current due date?
                     if (dueDate.year() <= completedDate.year()
@@ -183,6 +183,7 @@ var NumberOfItemsPerCompletedProjectChart = {
         
         var projects = $.merge(completedProjects, TodoistData.sync.projects);
         
+        projects = TodoistData.sync.projects;
         
         console.log("Projects: " + projects);
         
@@ -405,7 +406,7 @@ var CompletedDateScatterChart = {
         var dataArray = [["Counter", "Time"]];
 
         for (var i = 0; i < completedItems.length; i++) {
-            var completedDate = convertDateToMoment(completedItems[i].completed_date);
+            var completedDate = ModuleUtils.convertDateToMoment(completedItems[i].completed_date);
             dataArray.push([
                 i, 
                 completedDate.hours() + completedDate.minutes() / 60
