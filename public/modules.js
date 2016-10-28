@@ -1,5 +1,5 @@
 
-/* global _, google */
+/* global _, google, ModuleUtils */
 
 
 /**

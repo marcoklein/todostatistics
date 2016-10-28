@@ -53,8 +53,8 @@ var PORT = 3012;
 
 var TodoistAPI = require("./todoist.js");
 
-var PersistentCache = require("./persistent_cache.js");
-var userCache = new PersistentCache("./user_cache");
+var PersistentCache = require("./persistentCache.js");
+var userCache = new PersistentCache("./userCache");
 
 app.get('/', function (req, res) {
     
