@@ -505,5 +505,5 @@ $(window).resize(function(){
     resizeTimeout = setTimeout(function () {
 //        console.log("Render");
         renderDashboard();
-    }, 50); // render after 100ms of inactivity after resize
+    }, 50); // render after 50ms of inactivity after resize
 });
