@@ -5,7 +5,7 @@
  */
 
 var request = require("request");
-var RSVP = require("promise");
+var Promise = require("promise");
 var _ = require("underscore");
 
 /**
@@ -39,7 +39,7 @@ TodoistAPI.prototype.sync = function sync(resource_types) {
     // resource_types
     // [day_orders_timestamp]
     var self = this;
-    var promise = new RSVP.Promise(function syncPromise(resolve, reject) {
+    var promise = new Promise(function syncPromise(resolve, reject) {
         
         var token = self.token;
         
@@ -132,7 +132,7 @@ TodoistAPI.prototype.completed = {
         };
         
         
-        var promise = new RSVP.Promise(function getAllCompletedPromise(resolve, reject) {
+        var promise = new Promise(function getAllCompletedPromise(resolve, reject) {
             console.log("Get all request with token: " + self.token);
             getNextCompletedItems(self.token, 0, { items: [], projects: []}, function (msgBody) {
                 
@@ -211,7 +211,7 @@ TodoistAPI.prototype.activity = {
         };
         
         
-        var promise = new RSVP.Promise(function getAllActivityPromise(resolve, reject) {
+        var promise = new Promise(function getAllActivityPromise(resolve, reject) {
             console.log("Get all request with token: " + self.token);
             getNextActivityItems(self.token, 0, { items: []}, function (msgBody) {
                 

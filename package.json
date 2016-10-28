@@ -10,6 +10,9 @@
   ],
   "author": "marco",
   "contributors": [],
+  "scripts": {
+    "start": "node main.js" 
+  },
   "dependencies": {
     "body-parser": "^1.15.2",
     "ejs": "^2.5.2",
