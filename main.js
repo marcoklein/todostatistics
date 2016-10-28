@@ -32,7 +32,13 @@ var optionDefinitions = [
 ];
 var options = commandLineArgs(optionDefinitions);
 
+if (options.production) {
+    console.log("Starting with production mode enabled.");
+}
+
 // constants to access Todoist App
+
+var PRODUCTION_DOMAIN = "todoiststatistics.marco-klein.com";
 
 var TODOIST_CLIENT_ID = options.production ? "dfe159c316fc4e938f318a09a791e8c8" : "81ec6427a0a349e4934f939df243eb03";
 var TODOIST_CLIENT_SECRET = options.production ? "d51db700ba4d4a91ae71b1459325ccc0" : "a42733352c684f01a4505e51a29cb93d";
@@ -152,7 +158,11 @@ app.get("/outh", function (req, res) {
 //                    getAllCompletedItems(accessToken);
                     req.session.access_token = accessToken;
                     
-                    res.redirect("/");
+                    if (options.production) {
+                        res.redirect(PRODUCTION_DOMAIN + "/");
+                    } else {
+                        res.redirect("/");
+                    }
                 } else {
                     console.error("ERROR: " + response.statusCode + " Access token could not be requested: " + error);
                     console.error(JSON.stringify(body));
