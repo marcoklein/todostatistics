@@ -1,5 +1,5 @@
 
-/* global _, google, ModuleUtils */
+/* global _, google, ModuleUtils, dataProcessManager */
 
 
 /**
@@ -24,6 +24,11 @@ var TodoistData = {
     activity: null
 };
 
+var TodoistProjectColors = [
+    "#95ef63",
+    "#ff8581", "#ffc471", "#f9ec75", "#a8c8e4", "#d2b8a3", "#e2a8e4", "#cccccc", "#fb886e", "#ffcc00", "#74e8d3", "#3bd5fb",
+    "#dc4fad", "#ac193d", "#d24726", "#82ba00", "#03b3b2", "#008299", "#5db2ff", "#0072c6", "#000000", "#777777"
+];
 
 
 /**
@@ -171,56 +176,49 @@ var MostPostponedItem = {
 
 var NumberOfItemsPerCompletedProjectChart = {
     render: function () {
-        if (!TodoistData.completed) {
-            return; // completed is needed
+        var processedData = dataProcessManager.process("completed-items-per-active-project", TodoistData);
+        if (!processedData) {
+            return;
         }
         
+        // set project names as labels
+        var labels = _.map(processedData, function (data) {
+            return data.project.name;
+        });
         
-        var todoistData = TodoistData.completed;
+        // fill dataset for chart
+        var dataset = {};
         
-        // extract project to access projects later
-        var completedProjects = _.values(todoistData.projects);
-        
-        var projects = $.merge(completedProjects, TodoistData.sync.projects);
-        
-        projects = TodoistData.sync.projects;
-        
-        console.log("Projects: " + projects);
-        
-        var dataArray = [['Project', 'Number of Items']];
-
-        var itemCountArray = _.map(projects, function (project) {
-            return _.filter(todoistData.items, function (item) {
-                return "" + item.project_id === "" + project.id;
-            }).length;
+        dataset.data = _.map(processedData, function (data) {
+            return data.item_count;
+        });
+        dataset.backgroundColor = _.map(processedData, function (data) {
+            return TodoistProjectColors[data.project.color];
         });
 
-        // TODO fasse projekte mit gleichem namen zusammen
-        /*
-         * Alle completed items haben entweder ein projekt, das auch bereits completed ist
-         * oder ein noch aktives projekt.
-         * 
-         */
-        for (var i = 0; i < projects.length; i++) {
-            dataArray.push([
-                projects[i].name,
-                itemCountArray[i]
-            ]);
-        }
 
-        var data = google.visualization.arrayToDataTable(
-                dataArray);
-
-        var options = {
-            title: 'Completed Projects'
+        var chartData = {
+            labels: labels,
+            datasets: [
+                dataset
+            ]
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('completed_projects'));
 
-        chart.draw(data, options);
+
+        var options = {
+            label: 'Completed Items per Active Project'
+        };
         
         
-        
+
+        var ctx = document.getElementById("completed-items-per-active-project");
+
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: chartData,
+            options: options
+        });
         
     }
 };
@@ -344,56 +342,6 @@ var NumberOfItemsPerDayColumnChart = {
     }
 };
 
-var NumberOfItemsPerCompletedProjectChart = {
-    render: function () {
-        if (!TodoistData.completed) {
-            return; // completed is needed
-        }
-        
-        
-        var todoistData = TodoistData.completed;
-        
-        // extract project to access projects later
-        var completedProjects = _.values(todoistData.projects);
-        
-        var projects = $.merge(completedProjects, TodoistData.sync.projects);
-        
-        
-        console.log("Projects: " + projects);
-        
-        var dataArray = [['Project', 'Number of Items']];
-
-        var itemCountArray = _.map(projects, function (project) {
-            return _.filter(todoistData.items, function (item) {
-                return "" + item.project_id === "" + project.id;
-            }).length;
-        });
-
-        // TODO fasse projekte mit gleichem namen zusammen
-        for (var i = 0; i < projects.length; i++) {
-            dataArray.push([
-                projects[i].name,
-                itemCountArray[i]
-            ]);
-        }
-
-        var data = google.visualization.arrayToDataTable(
-                dataArray);
-
-        var options = {
-            title: 'Completed Projects'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('completed_projects'));
-
-        chart.draw(data, options);
-        
-        
-        
-        
-    }
-};
-
 var CompletedDateScatterChart = {
     render: function () {
         if (!TodoistData.completed) {
@@ -484,6 +432,7 @@ var AvailableModules = [
     ProjectsAndItemsPieChart,
     NumberOfItemsPerDayColumnChart,
     NumberOfItemsPerCompletedProjectChart,
+//    NumberOfItemsPerCompletedProjectChart,
     MostCompletedItem,
     CompletedDateScatterChart,
     MostPostponedItem
