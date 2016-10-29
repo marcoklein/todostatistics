@@ -175,8 +175,8 @@ var MostPostponedItem = {
 };
 
 var NumberOfItemsPerCompletedProjectChart = {
-    render: function () {
-        var processedData = dataProcessManager.process("completed-items-per-active-project", TodoistData);
+    render: function (renderData) {
+        var processedData = dataProcessManager.process("completed-items-per-active-project", renderData);
         if (!processedData) {
             return;
         }
@@ -220,6 +220,22 @@ var NumberOfItemsPerCompletedProjectChart = {
             options: options
         });
         
+    }
+};
+
+var MostActiveProject = {
+    render: function (data) {
+        var processedData = dataProcessManager.process("completed-items-per-active-project", data);
+        if (!processedData) {
+            return;
+        }
+        
+        var mostActiveProject = "<None Completed>";
+        if (processedData.length > 0) {
+            mostActiveProject = _.sortBy(processedData, "item_count")[processedData.length - 1].project.name;
+        }
+        
+        $(".most-active-project h1").text(mostActiveProject);
     }
 };
 
@@ -411,7 +427,7 @@ function getTodoistData() {
  */
 function renderDashboard() {
     for (var i = 0; i < AvailableModules.length; i++) {
-        AvailableModules[i].render();
+        AvailableModules[i].render(TodoistData);
     }
 }
 
@@ -435,7 +451,8 @@ var AvailableModules = [
 //    NumberOfItemsPerCompletedProjectChart,
     MostCompletedItem,
     CompletedDateScatterChart,
-    MostPostponedItem
+    MostPostponedItem,
+    MostActiveProject
 ];
 
 
