@@ -174,6 +174,26 @@ var MostPostponedItem = {
     }
 };
 
+var NumberOfPostpones = {
+    render: function(renderData) {
+        
+        var processedData = dataProcessManager.process("postponed-active-items", renderData);
+        if (!processedData) {
+            return;
+        }
+        
+        var count = 0;
+        _.each(processedData, function (item) {
+            count += item.postponed_count;
+        });
+        
+        // most_completed_item
+        $(".number-of-postpones h1").text(count);
+        $(".number-of-postpones h3").text("Postpones.");
+        
+    }
+}
+
 var NumberOfItemsPerCompletedProjectChart = {
     render: function (renderData) {
         var processedData = dataProcessManager.process("completed-items-per-active-project", renderData);
@@ -452,7 +472,8 @@ var AvailableModules = [
     MostCompletedItem,
     CompletedDateScatterChart,
     MostPostponedItem,
-    MostActiveProject
+    MostActiveProject,
+    NumberOfPostpones
 ];
 
 
