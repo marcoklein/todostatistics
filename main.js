@@ -95,8 +95,6 @@ app.get('/', function (req, res) {
             req.session.user_id = userId;
             
             
-            userCache.put(userId, "sync", value);
-            
             res.render("index.html", { todoist_data: value, todoist_data_string: JSON.stringify(value) });
         }).catch(function (error) {
             console.error("Token invalid: redirecting user and clearing access token: " + error);
@@ -173,22 +171,13 @@ app.post("/API/v7/sync", function (req, res) {
     console.log("Sync request with token: " + req.session.access_token);
     if (req.session && req.session.access_token) {
 
-        // test if can return cached data
-        userCache.get(req.session.user_id, "sync", function (cachedData, error) {
-            if (cachedData) {
-                console.log("Returning cached sync data.");
-                res.end(JSON.stringify(cachedData));
-            } else {
-                var todoist = new TodoistAPI(req.session.access_token);
+        var todoist = new TodoistAPI(req.session.access_token);
 
-                todoist.sync().then(function (value) {
+        todoist.sync().then(function (value) {
 
-                    console.log("Sending synced value.");
-                    res.end(JSON.stringify(value));
+            console.log("Sending synced value.");
+            res.end(JSON.stringify(value));
 
-                    userCache.put(req.session.user_id, "sync", value);
-                });
-            }
         });
     } else {
         console.log("Sync request login refused");
@@ -201,34 +190,23 @@ app.post("/API/v7/completed/get_all", function (req, res) {
     
     if (req.session && req.session.access_token) {
         
-        // test if can return cached data
-//        userCache.get(req.session.user_id, "completed", function (cachedData, error) {
-//            if (cachedData) {
-//                console.log("Returning cached completed data.");
-//                res.end(JSON.stringify(cachedData));
-//            } else {
+        var params = {};
+        if (req.body && req.body.since) {
+            // only allow since as param from client
+            params.since = req.body.since;
+        }
+        var todoist = new TodoistAPI(req.session.access_token);
 
-                var params = {};
-                if (req.body && req.body.since) {
-                    // only allow since as param from client
-                    params.since = req.body.since;
-                }
-                var todoist = new TodoistAPI(req.session.access_token);
+        todoist.completed.get_all(params).then(function (value) {
 
-                todoist.completed.get_all(params).then(function (value) {
+            console.log("Sending completed items.");
+            res.end(JSON.stringify(value));
+        }
 
-                    userCache.put(req.session.user_id, "completed", value);
+        ).catch(function (error) {
+            console.log("Error completed items: " + error);
+        });
 
-                    console.log("Sending completed items.");
-                    res.end(JSON.stringify(value));
-                }
-
-                ).catch(function (error) {
-                    console.log("Error completed items: " + error);
-                });
-//            }
-//        });
-        
     } else {
         console.log("Completed get_all request login refused");
         res.end("You must login first.");
@@ -240,34 +218,21 @@ app.post("/API/v7/activity/get", function (req, res) {
     
     if (req.session && req.session.access_token) {
         
-        // test if can return cached data
-//        userCache.get(req.session.user_id, "activity", function (cachedData, error) {
-//            if (cachedData) {
-//                console.log("Returning cached activity log.");
-//                res.end(JSON.stringify(cachedData));
-//            } else {
-                // query data
-                
-                var params = {};
-                if (req.body && req.body.since) {
-                    // only allow since as param from client
-                    params.since = req.body.since;
-                }
-                var todoist = new TodoistAPI(req.session.access_token);
+        var params = {};
+        if (req.body && req.body.since) {
+            // only allow since as param from client
+            params.since = req.body.since;
+        }
+        var todoist = new TodoistAPI(req.session.access_token);
 
-                todoist.activity.get(params).then(function (value) {
+        todoist.activity.get(params).then(function (value) {
 
-                    userCache.put(req.session.user_id, "activity", value);
+            console.log("Sending activity items.");
+            res.end(JSON.stringify(value));
 
-                    console.log("Sending activity items.");
-                    res.end(JSON.stringify(value));
-
-                }).catch(function (error) {
-                    console.log("Error activity items: " + error);
-                });
-//            }
-//        });
-        
+        }).catch(function (error) {
+            console.log("Error activity items: " + error);
+        });
         
     } else {
         console.log("Activity get_all request login refused");
