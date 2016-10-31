@@ -97,13 +97,6 @@ app.get('/', function (req, res) {
             
             userCache.put(userId, "sync", value);
             
-            todoist.completed.get_all({
-                since: "2016-10-21T12:00"
-            }).then(function (value) {
-                console.log("Retrieved all completed items for last days.");
-            });
-            
-            
             res.render("index.html", { todoist_data: value, todoist_data_string: JSON.stringify(value) });
         }).catch(function (error) {
             console.error("Token invalid: redirecting user and clearing access token: " + error);
@@ -209,14 +202,20 @@ app.post("/API/v7/completed/get_all", function (req, res) {
     if (req.session && req.session.access_token) {
         
         // test if can return cached data
-        userCache.get(req.session.user_id, "completed", function (cachedData, error) {
-            if (cachedData) {
-                console.log("Returning cached completed data.");
-                res.end(JSON.stringify(cachedData));
-            } else {
+//        userCache.get(req.session.user_id, "completed", function (cachedData, error) {
+//            if (cachedData) {
+//                console.log("Returning cached completed data.");
+//                res.end(JSON.stringify(cachedData));
+//            } else {
+
+                var params = {};
+                if (req.body && req.body.since) {
+                    // only allow since as param from client
+                    params.since = req.body.since;
+                }
                 var todoist = new TodoistAPI(req.session.access_token);
 
-                todoist.completed.get_all().then(function (value) {
+                todoist.completed.get_all(params).then(function (value) {
 
                     userCache.put(req.session.user_id, "completed", value);
 
@@ -227,8 +226,8 @@ app.post("/API/v7/completed/get_all", function (req, res) {
                 ).catch(function (error) {
                     console.log("Error completed items: " + error);
                 });
-            }
-        });
+//            }
+//        });
         
     } else {
         console.log("Completed get_all request login refused");
@@ -242,15 +241,21 @@ app.post("/API/v7/activity/get", function (req, res) {
     if (req.session && req.session.access_token) {
         
         // test if can return cached data
-        userCache.get(req.session.user_id, "activity", function (cachedData, error) {
-            if (cachedData) {
-                console.log("Returning cached activity log.");
-                res.end(JSON.stringify(cachedData));
-            } else {
+//        userCache.get(req.session.user_id, "activity", function (cachedData, error) {
+//            if (cachedData) {
+//                console.log("Returning cached activity log.");
+//                res.end(JSON.stringify(cachedData));
+//            } else {
                 // query data
+                
+                var params = {};
+                if (req.body && req.body.since) {
+                    // only allow since as param from client
+                    params.since = req.body.since;
+                }
                 var todoist = new TodoistAPI(req.session.access_token);
 
-                todoist.activity.get().then(function (value) {
+                todoist.activity.get(params).then(function (value) {
 
                     userCache.put(req.session.user_id, "activity", value);
 
@@ -260,8 +265,8 @@ app.post("/API/v7/activity/get", function (req, res) {
                 }).catch(function (error) {
                     console.log("Error activity items: " + error);
                 });
-            }
-        });
+//            }
+//        });
         
         
     } else {

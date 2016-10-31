@@ -125,6 +125,8 @@ TodoistAPI.prototype.completed = {
                             console.error("ERROR: Could not retrieve completed items: " + response);
                             return;
                         }
+                        // FIXME error handling is not consistent, error does not always returns the error
+                        //console.log("Completed Response: " + body);
                         // parse body
                         body = JSON.parse(body);
                         
@@ -133,7 +135,6 @@ TodoistAPI.prototype.completed = {
 
                         // get body items
                         var items = body.items;
-                        console.log("Retrieved " + items.length + " items.");
                         
                         // add items to all body
                         for (var i = 0; i < items.length; i++) {

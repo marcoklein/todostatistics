@@ -1,5 +1,5 @@
 
-/* global _, google, ModuleUtils, dataProcessManager */
+/* global _, google, ModuleUtils, dataProcessManager, moment */
 
 
 /**
@@ -367,7 +367,7 @@ var NumberOfItemsPerDayColumnChart = {
             2]);
 
         var options = {
-            title: "Average number of completed items per day.",
+            title: "Distribution of completed items",
 //            width: 600,
 //            height: 400,
             bar: {groupWidth: "95%"},
@@ -422,22 +422,40 @@ var CompletedDateScatterChart = {
     }
 };
 
+/**
+ * Retrieves Todoist data.
+ * 
+ * @returns {undefined}
+ */
 function getTodoistData() {
     $.post("/API/v7/sync", function (res) {
         TodoistData.sync = JSON.parse(res);
         renderDashboard();
     });
     
-    $.post("/API/v7/completed/get_all", function (res) {
-        TodoistData.completed = JSON.parse(res);
-        renderDashboard();
-    });
+    // get only items for last 7 days
+    var dateSince = moment().subtract(7,'d').format("YYYY-MM-DDTHH:MM");
     
-    $.post("/API/v7/activity/get", function (res) {
-        TodoistData.activity = JSON.parse(res);
-        renderDashboard();
-    });
+    console.log("Date since: " + dateSince);
     
+    $.post("/API/v7/completed/get_all",
+            {
+                since: dateSince
+            },
+            function (res) {
+                TodoistData.completed = JSON.parse(res);
+                renderDashboard();
+            });
+    
+    $.post("/API/v7/activity/get",
+            {
+                since: dateSince
+            },
+            function (res) {
+                TodoistData.activity = JSON.parse(res);
+                renderDashboard();
+            });
+
 }
 
 /**
