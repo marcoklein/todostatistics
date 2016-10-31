@@ -11,7 +11,7 @@
   "author": "marco",
   "contributors": [],
   "scripts": {
-    "start": "node main.js",
+    "start": "node main.js"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
