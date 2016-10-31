@@ -12,7 +12,7 @@ var DataProcessors = [
         name: "completed-items-per-active-project",
         description: "Counts how many completed items each active project has.",
         process: function (data) {
-            if (!data.completed) {
+            if (!data.completed || !data.sync) {
                 return null;
             }
 
@@ -97,6 +97,24 @@ var DataProcessors = [
                 };
             });
 
+        }
+    },
+    {
+        name: "number-of-active-items-with-priority",
+        description: "Returns the number of active items with a priority.",
+        process: function (data) {
+            if (!data.sync) {
+                return null;
+            }
+            
+            var count = 0;
+            _.each(data.sync.items, function (item) {
+                if (item.priority > 1) {
+                    count++;
+                }
+            });
+            
+            return count;
         }
     }
     

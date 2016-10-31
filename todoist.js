@@ -125,10 +125,14 @@ TodoistAPI.prototype.completed = {
                             console.error("ERROR: Could not retrieve completed items: " + response);
                             return;
                         }
-                        // FIXME error handling is not consistent, error does not always returns the error
-                        //console.log("Completed Response: " + body);
+                        
                         // parse body
                         body = JSON.parse(body);
+                        
+                        if (!body.items) {
+                            console.error("ERROR: Could not retrieve completed items: " + body);
+                            return;
+                        }
                         
                         // add all projects which are not already added
                         msgBody.projects = _.union(msgBody.projects, body.projects);
@@ -160,6 +164,7 @@ TodoistAPI.prototype.completed = {
         
         var promise = new Promise(function getAllCompletedPromise(resolve, reject) {
             console.log("Get all request with token: " + self.token);
+            
             getNextCompletedItems(self.token, 0, { items: [], projects: []}, function (msgBody) {
                 
                 //console.log("all items: " + JSON.stringify(allItems));
@@ -238,7 +243,17 @@ TodoistAPI.prototype.activity = {
                         }
                         // parse body
                         items = JSON.parse(body);
+                        
+                        
+                        if (!items) {
+                            console.error("ERROR: Could not retrieve activity: " + body);
+                            return;
+                        }
+                        
                         console.log("Retrieved " + items.length + " items.");
+                        
+                        
+                        
                         
                         // add items to all body
                         for (var i = 0; i < items.length; i++) {

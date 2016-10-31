@@ -40,8 +40,11 @@ var TodoistProjectColors = [
 google.charts.load('current', {'packages': ['corechart', "bar"]});
 
 var ProjectsAndItemsPieChart = {
-    render: function () {
-        var todoistData = TodoistData.sync;
+    render: function (renderData) {
+        if (!renderData.sync) {
+            return;
+        }
+        var todoistData = renderData.sync;
 
         var dataArray = [["Project", "Number of Items"]];
 
@@ -422,6 +425,20 @@ var CompletedDateScatterChart = {
     }
 };
 
+var ItemsWithPriority = {
+    render: function(renderData) {
+        var processedData = dataProcessManager.process("number-of-active-items-with-priority", renderData);
+        if (!processedData) {
+            return;
+        }
+        
+        
+        // most_completed_item
+        $(".items-with-priority h1").text(processedData);
+        $(".items-with-priority h3").text("Items have a priority.");
+    }
+};
+
 /**
  * Retrieves Todoist data.
  * 
@@ -491,7 +508,8 @@ var AvailableModules = [
     CompletedDateScatterChart,
     MostPostponedItem,
     MostActiveProject,
-    NumberOfPostpones
+    NumberOfPostpones,
+    ItemsWithPriority
 ];
 
 
