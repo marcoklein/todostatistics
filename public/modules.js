@@ -176,8 +176,14 @@ var MostPostponedItem = {
         });
 
         // most_completed_item
+        //$("#most_postponed_item h1").css("padding-top", "50px");
+        $("#most_postponed_item h1").css("font-size", "24px");
         $("#most_postponed_item h1").text(mostPostponedItem);
-        $("#most_postponed_item h3").text("was postponed " + number + " times");
+        var timesString = "time";
+        if (number !== 1) {
+            timesString += "s";
+        }
+        $("#most_postponed_item h3").text("Was postponed " + number + " " + timesString + ".");
         
     }
 };
