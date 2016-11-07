@@ -137,7 +137,7 @@ var MostPostponedItem = {
 
         // most_completed_item
         //$("#most_postponed_item h1").css("padding-top", "50px");
-        $("#most_postponed_item h1").css("font-size", "24px");
+        //$("#most_postponed_item h1").css("font-size", "24px");
         $("#most_postponed_item h1").text(mostPostponedItem);
         var timesString = "time";
         if (number !== 1) {
