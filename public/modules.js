@@ -119,61 +119,21 @@ var MostCompletedItem = {
  * @type type
  */
 var MostPostponedItem = {
-    render: function () {
-        if (!TodoistData.activity) {
-            return; // completed is needed
+    render: function (renderData) {
+        var processedData = dataProcessManager.process("active-postponed-items", renderData);
+        if (!processedData) {
+            return;
         }
-        
-        // get activity
-        var activity = TodoistData.activity.items;
         
         var mostPostponedItem = "<None Postponed>";
         var number = 0;
         
-        
-        // filter out all none items
-        var itemActivity = _.filter(activity, function (itemFilter) {
-            return itemFilter.event_type === "updated" && itemFilter.object_type === "item";
-        });
-        
-        // compare only active items
-        var items = TodoistData.sync.items;
-        
-        _.each(items, function (log) {
-            
-            var postponedCount = _.filter(itemActivity, function (itemFilter) {
-                if (log.content === itemFilter.extra_data.content) {
-                    // both items match each other
-                    // test if the item is really postponed
-                    
-                    var lastDueDate = ModuleUtils.convertDateToMoment(itemFilter.extra_data.last_due_date);
-                    var dueDate = ModuleUtils.convertDateToMoment(itemFilter.extra_data.due_date);
-                    
-                    var completedDate = ModuleUtils.convertDateToMoment(itemFilter.event_date);
-                    
-                    // last Due Date before current due date?
-                    if (dueDate.year() <= completedDate.year()
-                            && dueDate.month() <= completedDate.month()
-                            && dueDate.days() <= completedDate.days()) {
-                        // yes its before the day or on the occuring day
-                        
-                        // really postponed?
-                        if (dueDate.year() <= lastDueDate.year()
-                                && dueDate.month() <= lastDueDate.month()
-                                && dueDate.days() <= lastDueDate.days()) {
-                            // really postponed
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }).length;
-            
-            if (postponedCount > number) {
-                number = postponedCount;
-                mostPostponedItem = log.content;
-            }
-        });
+        if (processedData.length > 0) {
+            // there are postponed items
+            // read out last item (list is sorted)
+            mostPostponedItem = processedData[processedData.length - 1].item.content;
+            number = processedData[processedData.length - 1].postponed_count;
+        }
 
         // most_completed_item
         //$("#most_postponed_item h1").css("padding-top", "50px");
@@ -443,10 +403,13 @@ var ItemsWithPriority = {
             return;
         }
         
+        var activeItems = renderData.sync.items.length;
+        var priorityPercent = Math.floor(processedData / activeItems * 100 + 0.5);
+        
         
         // most_completed_item
-        $(".items-with-priority h1").text(processedData);
-        $(".items-with-priority h3").text("Items have a priority.");
+        $(".items-with-priority h1").text(priorityPercent + "%");
+        $(".items-with-priority h3").text("Of your items have a priority.");
     }
 };
 

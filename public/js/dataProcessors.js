@@ -61,7 +61,7 @@ var DataProcessors = [
 
 
             // [{item: {... item ...}, postpone_count: 200}, ...]
-            return _.sort(_.map(items, function (item) {
+            return _.sortBy(_.map(items, function (item) {
 
                 var postponedCount = _.filter(itemActivity, function (itemFilter) {
                     if (item.content === itemFilter.extra_data.content) {
