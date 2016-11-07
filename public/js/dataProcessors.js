@@ -43,7 +43,7 @@ var DataProcessors = [
     },
     {
         name: "active-postponed-items",
-        description: "Returns all active items with the number of postpones.",
+        description: "Returns all active items with the number of postpones. The returned array is sorted by the number of postpones.",
         process: function (data) {
             if (!data.sync || !data.activity) {
                 return null;
@@ -61,7 +61,7 @@ var DataProcessors = [
 
 
             // [{item: {... item ...}, postpone_count: 200}, ...]
-            return _.map(items, function (item) {
+            return _.sort(_.map(items, function (item) {
 
                 var postponedCount = _.filter(itemActivity, function (itemFilter) {
                     if (item.content === itemFilter.extra_data.content) {
@@ -95,12 +95,12 @@ var DataProcessors = [
                     item: item,
                     postponed_count: postponedCount
                 };
-            });
+            }), "postponed_count");
         }
     },
     {
         name: "all-postponed-items",
-        description: "Returns all active and completed items with the number of postpones.",
+        description: "Returns all active and completed items with the number of postpones. The returned array is sorted by the number of postpones.",
         process: function (data) {
             if (!data.sync || !data.activity || !data.completed) {
                 return null;
@@ -155,8 +155,8 @@ var DataProcessors = [
                 };
             };
             
-            return _.map(items, completedMap)
-                    .concat(_.map(completedItems, completedMap));
+            return _.sortBy(_.map(items, completedMap)
+                    .concat(_.map(completedItems, completedMap)), "postponed_count");
         }
     },
     {
