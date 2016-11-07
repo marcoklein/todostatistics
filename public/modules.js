@@ -107,8 +107,8 @@ var MostCompletedItem = {
         });
 
         // most_completed_item
-        $("#most_completed_item h1").text(mostCompletedItem);
-        $("#most_completed_item h3").text("was completed " + number + " times");
+        $(".most_completed_item h1").text(mostCompletedItem);
+        $(".most_completed_item h3").text("was completed " + number + " times");
         
     }
 };
@@ -475,11 +475,11 @@ google.charts.setOnLoadCallback(function () {
  */
 var AvailableModules = [
     ProjectsAndItemsPieChart,
-    NumberOfItemsPerDayColumnChart,
+//    NumberOfItemsPerDayColumnChart,
     NumberOfItemsPerCompletedProjectChart,
 //    NumberOfItemsPerCompletedProjectChart,
     MostCompletedItem,
-    CompletedDateScatterChart,
+//    CompletedDateScatterChart,
     MostPostponedItem,
     MostActiveProject,
     NumberOfPostpones,
