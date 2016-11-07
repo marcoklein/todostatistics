@@ -24,6 +24,11 @@ var TodoistData = {
     activity: null
 };
 
+/**
+ * Color code table which can be used to map Todoist project colors.
+ * 
+ * @type Array
+ */
 var TodoistProjectColors = [
     "#95ef63",
     "#ff8581", "#ffc471", "#f9ec75", "#a8c8e4", "#d2b8a3", "#e2a8e4", "#cccccc", "#fb886e", "#ffcc00", "#74e8d3", "#3bd5fb",
@@ -180,7 +185,7 @@ var MostPostponedItem = {
 var NumberOfPostpones = {
     render: function(renderData) {
         
-        var processedData = dataProcessManager.process("postponed-active-items", renderData);
+        var processedData = dataProcessManager.process("all-postponed-items", renderData);
         if (!processedData) {
             return;
         }

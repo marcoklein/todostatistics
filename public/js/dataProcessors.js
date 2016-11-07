@@ -42,7 +42,7 @@ var DataProcessors = [
         }
     },
     {
-        name: "postponed-active-items",
+        name: "active-postponed-items",
         description: "Returns all active items with the number of postpones.",
         process: function (data) {
             if (!data.sync || !data.activity) {
@@ -96,7 +96,67 @@ var DataProcessors = [
                     postponed_count: postponedCount
                 };
             });
+        }
+    },
+    {
+        name: "all-postponed-items",
+        description: "Returns all active and completed items with the number of postpones.",
+        process: function (data) {
+            if (!data.sync || !data.activity || !data.completed) {
+                return null;
+            }
+            var activity = data.activity.items;
 
+
+            // filter out all none items
+            var itemActivity = _.filter(activity, function (itemFilter) {
+                return itemFilter.event_type === "updated" && itemFilter.object_type === "item";
+            });
+
+            // compare active items and completed items
+            var items = data.sync.items;
+            var completedItems = data.completed.items;
+
+
+            // [{item: {... item ...}, postpone_count: 200}, ...]
+            
+            var completedMap = function (item) {
+                var postponedCount = _.filter(itemActivity, function (itemFilter) {
+                    if (item.content === itemFilter.extra_data.content) {
+                        // both items match each other
+                        // test if the item is really postponed
+
+                        var lastDueDate = ModuleUtils.convertDateToMoment(itemFilter.extra_data.last_due_date);
+                        var dueDate = ModuleUtils.convertDateToMoment(itemFilter.extra_data.due_date);
+
+                        var completedDate = ModuleUtils.convertDateToMoment(itemFilter.event_date);
+
+                        // last Due Date before current due date?
+                        if (dueDate.year() <= completedDate.year()
+                                && dueDate.month() <= completedDate.month()
+                                && dueDate.days() <= completedDate.days()) {
+                            // yes its before the day or on the occuring day
+
+                            // really postponed?
+                            if (dueDate.year() <= lastDueDate.year()
+                                    && dueDate.month() <= lastDueDate.month()
+                                    && dueDate.days() <= lastDueDate.days()) {
+                                // really postponed
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }).length;
+
+                return {
+                    item: item,
+                    postponed_count: postponedCount
+                };
+            };
+            
+            return _.map(items, completedMap)
+                    .concat(_.map(completedItems, completedMap));
         }
     },
     {
