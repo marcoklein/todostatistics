@@ -64,6 +64,7 @@ var DataProcessors = [
             return _.sortBy(_.map(items, function (item) {
 
                 var postponedCount = _.filter(itemActivity, function (itemFilter) {
+                    if (itemActivity.checked) return false; // item already marked as completed
                     if (item.content === itemFilter.extra_data.content) {
                         // both items match each other
                         // test if the item is really postponed
