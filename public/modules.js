@@ -418,14 +418,19 @@ var ItemsWithPriority = {
  * 
  * @returns {undefined}
  */
-function getTodoistData() {
+function getTodoistData(days) {
+    if (!days) {
+        days = "7";
+    } else {
+        days = +days;
+    }
     $.post("/API/v7/sync", function (res) {
         TodoistData.sync = JSON.parse(res);
         renderDashboard();
     });
     
     // get only items for last 7 days
-    var dateSince = moment().subtract(7,'d').format("YYYY-MM-DDTHH:MM");
+    var dateSince = moment().subtract(+days,'d').format("YYYY-MM-DDTHH:MM");
     
     console.log("Date since: " + dateSince);
     
