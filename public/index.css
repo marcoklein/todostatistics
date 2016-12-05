@@ -14,6 +14,10 @@
     /*background-color: red;*/
 }
 
+.completed-items-per-active-project {
+    height: 300px;
+}
+
 .module-value-double h1 {
     color: black;
     text-align: center;

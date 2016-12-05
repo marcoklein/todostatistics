@@ -72,6 +72,9 @@ var ProjectsAndItemsPieChart = {
         var options = {
             title: 'Projects'
         };
+        
+        // reset previous charts
+        $(".piechart").empty();
 
         $(".piechart").each(function (index, element) {
             var chart = new google.visualization.PieChart(element);
@@ -205,13 +208,26 @@ var NumberOfItemsPerCompletedProjectChart = {
         };
         
         
+        // reset previous charts
+        $(".completed-items-per-active-project").empty();
+        $(".completed-items-per-active-project").append("<canvas class=\"completed-items-per-active-project-canvas\"></canvas>");
 
-        var ctx = document.getElementById("completed-items-per-active-project");
+        _.defer(function () {
+            $(".completed-items-per-active-project-canvas").each(function (e) {
 
-        var myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: chartData,
-            options: options
+                console.log("setting canvas size");
+                $(this)[0].getContext("2d").canvas.width = $(this).parent().width();
+                $(this)[0].getContext("2d").canvas.height = $(this).parent().height();
+                
+                console.log("Init chart");
+                var myPieChart = new Chart($(this), {
+                    type: 'pie',
+                    data: chartData,
+                    options: options,
+                    reponsive: true,
+                    maintainAspectRatio: false
+                });
+            });
         });
         
     }
@@ -413,6 +429,10 @@ var ItemsWithPriority = {
     }
 };
 
+var syncRequest;
+var completedRequest;
+var activityRequest;
+
 /**
  * Retrieves Todoist data.
  * 
@@ -424,9 +444,19 @@ function getTodoistData(days) {
     } else {
         days = +days;
     }
-    $.post("/API/v7/sync", function (res) {
+    // abort requests if one is active
+    if (syncRequest || completedRequest || activityRequest) {
+        syncRequest.abort();
+        completedRequest.abort();
+        activityRequest.abort();
+        
+        // requests are set in post requests
+    }
+    
+    syncRequest = $.post("/API/v7/sync", function (res) {
         TodoistData.sync = JSON.parse(res);
         renderDashboard();
+        syncRequest = null;
     });
     
     // get only items for last 7 days
@@ -434,22 +464,24 @@ function getTodoistData(days) {
     
     console.log("Date since: " + dateSince);
     
-    $.post("/API/v7/completed/get_all",
+    completedRequest = $.post("/API/v7/completed/get_all",
             {
                 since: dateSince
             },
             function (res) {
                 TodoistData.completed = JSON.parse(res);
                 renderDashboard();
+                completedRequest = null;
             });
     
-    $.post("/API/v7/activity/get",
+    activityRequest = $.post("/API/v7/activity/get",
             {
                 since: dateSince
             },
             function (res) {
                 TodoistData.activity = JSON.parse(res);
                 renderDashboard();
+                activityRequest = null;
             });
 
 }
